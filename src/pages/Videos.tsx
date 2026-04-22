@@ -1,5 +1,6 @@
 // src/pages/Videos.tsx
 import React, { useState, useMemo } from 'react';
+import VideoModal from '../components/VideoModal';
 import { Video } from '../types';
 import { VIDEOS, VIDEO_CATEGORIES } from '../types/data';
 
@@ -8,6 +9,7 @@ const Videos: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [sortBy, setSortBy] = useState('recentes');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
   const filteredAndSortedVideos = useMemo(() => {
     const filtered = VIDEOS.filter(video => {
@@ -34,7 +36,10 @@ const Videos: React.FC = () => {
   }, [searchTerm, selectedCategory, sortBy]);
 
   const VideoCard: React.FC<{ video: Video; isListView?: boolean }> = ({ video, isListView = false }) => (
-    <div className={`group cursor-pointer ${isListView ? 'flex bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700' : ''} transition-all duration-300`}>
+    <div 
+      className={`group cursor-pointer ${isListView ? 'flex bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700' : ''} transition-all duration-300`}
+      onClick={() => setSelectedVideo(video)}
+    >
       <div className={`relative overflow-hidden bg-gray-800 ${isListView ? 'w-48 flex-shrink-0' : 'aspect-video'} rounded-lg`}>
         <img
           src={video.thumbnail}
@@ -196,6 +201,12 @@ const Videos: React.FC = () => {
           </div>
         )}
       </div>
+
+      <VideoModal
+        video={selectedVideo}
+        isOpen={!!selectedVideo}
+        onClose={() => setSelectedVideo(null)}
+      />
     </div>
   );
 };

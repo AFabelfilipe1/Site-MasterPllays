@@ -2,15 +2,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import VideoModal from '../components/VideoModal';
 import { Video } from '../types';
 import { VIDEOS } from '../types/data';
 
 interface CarouselProps {
   videos: Video[];
   title: string;
+  onVideoClick?: (video: Video) => void;
 }
 
-const VideoCarousel: React.FC<CarouselProps> = ({ videos, title }) => {
+const VideoCarousel: React.FC<CarouselProps> = ({ videos, title, onVideoClick }) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -78,6 +80,7 @@ const VideoCarousel: React.FC<CarouselProps> = ({ videos, title }) => {
           <div
             key={video.id}
             className="flex-shrink-0 w-80 group cursor-pointer"
+            onClick={() => onVideoClick?.(video)}
           >
             <div className="relative aspect-video bg-gray-800 rounded-lg overflow-hidden mb-3">
               <img
@@ -127,6 +130,7 @@ const VideoCarousel: React.FC<CarouselProps> = ({ videos, title }) => {
 const Home: React.FC = () => {
   const { user } = useAuth();
   const [featuredVideo, setFeaturedVideo] = useState<Video | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
   useEffect(() => {
     const featured = VIDEOS.find(video => video.isFeatured) || VIDEOS[0];
@@ -195,32 +199,38 @@ const Home: React.FC = () => {
           <VideoCarousel
             videos={VIDEOS.slice(0, 6)}
             title="Continuar Assistindo"
+            onVideoClick={setSelectedVideo}
           />
         )}
 
         <VideoCarousel
           videos={VIDEOS.filter(v => v.isNew).slice(0, 8)}
           title="Em Alta Agora"
+          onVideoClick={setSelectedVideo}
         />
 
         <VideoCarousel
           videos={VIDEOS.filter(v => v.category === 'Programação').slice(0, 8)}
           title="Programação"
+          onVideoClick={setSelectedVideo}
         />
 
         <VideoCarousel
           videos={VIDEOS.filter(v => v.category === 'Design').slice(0, 8)}
           title="Design & Criatividade"
+          onVideoClick={setSelectedVideo}
         />
 
         <VideoCarousel
           videos={VIDEOS.filter(v => v.category === 'IA').slice(0, 8)}
           title="Inteligência Artificial"
+          onVideoClick={setSelectedVideo}
         />
 
         <VideoCarousel
           videos={VIDEOS.filter(v => ['Fotografia', 'Música', 'Viagem', 'Games'].includes(v.category)).slice(0, 8)}
           title="Mais Categorias"
+          onVideoClick={setSelectedVideo}
         />
 
         {!user && (
@@ -252,6 +262,12 @@ const Home: React.FC = () => {
           </section>
         )}
       </main>
+
+      <VideoModal
+        video={selectedVideo}
+        isOpen={!!selectedVideo}
+        onClose={() => setSelectedVideo(null)}
+      />
     </div>
   );
 };

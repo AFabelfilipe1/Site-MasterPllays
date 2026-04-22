@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
 
 export function useAuth() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const auth = getAuth();
-    return onAuthStateChanged(auth, setUser);
-  }, []);
-
-  return user;
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth deve ser usado dentro de um AuthProvider');
+  }
+  return context;
 }
