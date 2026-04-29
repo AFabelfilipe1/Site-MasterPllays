@@ -1,7 +1,7 @@
 // src/pages/Home.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import VideoModal from '../components/VideoModal';
 import { Video } from '../types';
 import { VIDEOS } from '../types/data';
