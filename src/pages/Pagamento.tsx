@@ -1,7 +1,7 @@
 // src/pages/Pagamento.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthContext';
 
 const Pagamento: React.FC = () => {
   const navigate = useNavigate();

@@ -2,6 +2,20 @@ import { Video, Plan } from './index';
 
 export const VIDEOS: Video[] = [
   {
+    id: '13',
+    title: 'Minecraft Sobrevivência: #1 Sobreviver sozinho no meio do nada',
+    thumbnail: 'https://img.youtube.com/vi/zDLGiBsD2W4/sddefault.jpg',
+    category: 'Games',
+    duration: '00:00',
+    views: '1K',
+    uploadDate: '2026-04-29',
+    isNew: true,
+    isFeatured: true,
+    description: 'Iniciando uma nova jornada de sobrevivência no Minecraft! Começando do zero, sozinho no meio do nada. Vamos construir uma base, conseguir recursos e aprender a sobreviver neste mundo hostil.',
+    creator: 'GamerPlayer',
+    tags: ['Minecraft', 'Gameplay', 'Sobrevivência', 'Let\'s Play']
+  },
+  {
     id: '1',
     title: 'Tutorial React Avançado - Hooks e Context API',
     thumbnail: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop',

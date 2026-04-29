@@ -1,7 +1,7 @@
 // src/components/Header.tsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthContext';
 
 const Header: React.FC = () => {
   const { user, logout } = useAuth();
