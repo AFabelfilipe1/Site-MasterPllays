@@ -142,7 +142,7 @@ const Lives: React.FC = () => {
             {/* Embed do Twitch */}
             <div className="bg-black rounded-lg overflow-hidden mb-4" style={{ aspectRatio: '16 / 9' }}>
               <iframe
-                src={`https://twitch.tv/embed/${selectedLive.twitchUsername}/chat?parent=localhost&parent=afabelfilipe1.github.io`}
+                src={`https://twitch.tv/embed/${selectedLive.twitchUsername}/chat?parent=afabelfilipe1.github.io`}
                 height="600"
                 width="100%"
                 className="w-full"

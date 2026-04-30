@@ -18,6 +18,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '1',
+    youtubeId: '1',
     title: 'Tutorial React Avançado - Hooks e Context API',
     thumbnail: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop',
     category: 'Programação',
@@ -32,6 +33,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '2',
+    youtubeId: '2',
     title: 'Design de Interfaces Modernas com Figma',
     thumbnail: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=225&fit=crop',
     category: 'Design',
@@ -44,6 +46,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '3',
+    youtubeId: '3',
     title: 'Machine Learning Básico - Introdução à IA',
     thumbnail: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=225&fit=crop',
     category: 'IA',
@@ -57,6 +60,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '4',
+    youtubeId: '4',
     title: 'Fotografia Profissional - Técnicas Avançadas',
     thumbnail: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=400&h=225&fit=crop',
     category: 'Fotografia',
@@ -69,6 +73,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '5',
+    youtubeId: '5',
     title: 'Produção de Música Eletrônica 2024',
     thumbnail: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=225&fit=crop',
     category: 'Música',
@@ -81,6 +86,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '6',
+    youtubeId: '6',
     title: 'Viagem pelo Mundo - Destinos Incríveis',
     thumbnail: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=225&fit=crop',
     category: 'Viagem',
@@ -93,6 +99,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '7',
+    youtubeId: '7',
     title: 'Jogos Indie - Descobertas 2024',
     thumbnail: 'https://images.unsplash.com/photo-1556438064-2d7646166914?w=400&h=225&fit=crop',
     category: 'Games',
@@ -106,6 +113,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '8',
+    youtubeId: '8',
     title: 'Culinária Gourmet - Receitas Premium',
     thumbnail: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=225&fit=crop',
     category: 'Culinária',
@@ -118,6 +126,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '9',
+    youtubeId: '9',
     title: 'Fitness e Saúde - Rotina Completa',
     thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=225&fit=crop',
     category: 'Fitness',
@@ -130,6 +139,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '10',
+    youtubeId: '10',
     title: 'Desenvolvimento Mobile com React Native',
     thumbnail: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=225&fit=crop',
     category: 'Programação',
@@ -143,6 +153,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '11',
+    youtubeId: '11',
     title: 'Ilustração Digital - Do Básico ao Avançado',
     thumbnail: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=225&fit=crop',
     category: 'Design',
@@ -155,6 +166,7 @@ export const VIDEOS: Video[] = [
   },
   {
     id: '12',
+    youtubeId: '12',
     title: 'Deep Learning com TensorFlow',
     thumbnail: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=225&fit=crop',
     category: 'IA',
