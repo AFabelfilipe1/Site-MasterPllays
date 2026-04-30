@@ -42,6 +42,13 @@ const Header: React.FC = () => {
               Vídeos
             </Link>
             <Link
+              to="/lives"
+              className="text-white hover:text-red-400 transition-colors duration-200 font-medium flex items-center space-x-1"
+            >
+              <span className="animate-pulse text-red-500">🔴</span>
+              <span>Lives</span>
+            </Link>
+            <Link
               to="/planos"
               className="text-white hover:text-red-400 transition-colors duration-200 font-medium"
             >

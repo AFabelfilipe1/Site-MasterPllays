@@ -11,8 +11,9 @@ interface VideoModalProps {
 const VideoModal: React.FC<VideoModalProps> = ({ video, isOpen, onClose }) => {
   if (!isOpen || !video) return null;
 
-  // Construir URL do vídeo (assumindo que as URLs estão no formato padrão)
-  const videoUrl = `https://www.youtube.com/embed/${video.id}?autoplay=1&controls=1`;
+  // Construir URL do vídeo usando youtubeId
+  const youtubeId = video.youtubeId || video.id;
+  const videoUrl = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&controls=1`;
 
   return (
     <div

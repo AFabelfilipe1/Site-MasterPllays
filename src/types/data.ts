@@ -3,10 +3,11 @@ import { Video, Plan } from './index';
 export const VIDEOS: Video[] = [
   {
     id: '13',
+    youtubeId: 'zDLGiBsD2W4',
     title: 'Minecraft Sobrevivência: #1 Sobreviver sozinho no meio do nada',
     thumbnail: 'https://img.youtube.com/vi/zDLGiBsD2W4/sddefault.jpg',
     category: 'Games',
-    duration: '00:00',
+    duration: '15:32',
     views: '1K',
     uploadDate: '2026-04-29',
     isNew: true,

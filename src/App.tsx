@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Videos from './pages/Videos'
+import Lives from './pages/Lives'
 import Auth from './pages/Auth'
 import Profile from './pages/Profile'
 import Planos from './pages/Planos'
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/videos" element={<Videos />} />
+          <Route path="/lives" element={<Lives />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/planos" element={<Planos />} />
