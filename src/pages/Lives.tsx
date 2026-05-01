@@ -18,34 +18,33 @@ const Lives: React.FC = () => {
   const navigate = useNavigate();
   const [selectedLive, setSelectedLive] = useState<Live | null>(null);
 
-  // Dados das lives
   const lives: Live[] = [
     {
       id: '1',
       title: 'Minecraft Gameplay AO VIVO - Construindo a Base Épica',
       twitchUsername: 'masterpllays',
       category: 'Games',
-      description: 'Vem acompanhar o gameplay ao vivo! Vamos continuar construindo a base mais épica do mundo do Minecraft. Chat interativo, desafios propostos pelos viewers e muito mais!',
+      description: 'Gameplay ao vivo com a comunidade!',
       isLive: false,
       scheduledTime: '2026-05-01 20:00 BRT',
       thumbnail: 'https://images.unsplash.com/photo-1556438064-2d7646166914?w=400&h=225&fit=crop'
     },
     {
       id: '2',
-      title: 'Tutorial React com Especialista - Ao Vivo',
+      title: 'Tutorial React ao Vivo',
       twitchUsername: 'masterpllays',
       category: 'Programação',
-      description: 'Sessão ao vivo de programação! Vamos aprender conceitos avançados de React e responder todas as suas dúvidas em tempo real.',
+      description: 'Aprenda React ao vivo!',
       isLive: false,
       scheduledTime: '2026-05-02 19:00 BRT',
       thumbnail: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop'
     },
     {
       id: '3',
-      title: 'Just Chatting - Conversa com a Comunidade',
+      title: 'Just Chatting - Comunidade',
       twitchUsername: 'masterpllays',
       category: 'Entretenimento',
-      description: 'Bora conversar! Just chatting com a comunidade MasterPllays. Histórias, perguntas, risadas e muita interação!',
+      description: 'Conversando com a comunidade!',
       isLive: true,
       thumbnail: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=225&fit=crop'
     }
@@ -53,176 +52,125 @@ const Lives: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black pt-24 pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Cabeçalho */}
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            🔴 Lives na Twitch
-          </h1>
-          <p className="text-gray-300 text-lg">
-            Acompanhe as transmissões ao vivo com a comunidade MasterPllays. Games, programação, conversa e muito mais!
-          </p>
+      <div className="max-w-7xl mx-auto px-4">
+
+        {/* HEADER */}
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold text-white">🔴 Lives na Twitch</h1>
+          <p className="text-gray-400">Assista e interaja ao vivo</p>
         </div>
 
-        {/* Status das Lives */}
-        <div className="mb-12">
-          <div className="grid md:grid-cols-3 gap-6">
-            {lives.map((live) => (
-              <div
-                key={live.id}
-                className="relative group cursor-pointer"
-                onClick={() => setSelectedLive(live)}
-              >
-                {/* Card da Live */}
-                <div className="relative overflow-hidden rounded-lg">
-                  {/* Thumbnail */}
-                  <img
-                    src={live.thumbnail}
-                    alt={live.title}
-                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
+        {/* LISTA */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          {lives.map((live) => (
+            <div
+              key={live.id}
+              className="cursor-pointer"
+              onClick={() => {
+                if (live.isLive) setSelectedLive(live);
+              }}
+            >
+              <div className="relative">
+                <img
+                  src={live.thumbnail}
+                  className="w-full h-48 object-cover rounded-lg"
+                />
 
-                  {/* Status Badge */}
-                  <div
-                    className={`absolute top-3 left-3 px-3 py-1 rounded-full text-white text-sm font-bold flex items-center space-x-1 ${
-                      live.isLive ? 'bg-red-600' : 'bg-gray-700'
-                    }`}
-                  >
-                    <span className={`w-2 h-2 rounded-full ${live.isLive ? 'bg-white' : 'bg-gray-400'}`}></span>
-                    <span>{live.isLive ? 'AO VIVO' : 'AGENDADO'}</span>
-                  </div>
-
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <div className="text-center">
-                      <svg className="w-16 h-16 text-white mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                      <p className="text-white font-semibold">Ver Live</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Informações da Live */}
-                <div className="p-4 bg-gray-800">
-                  <h3 className="text-white font-bold mb-2 line-clamp-2">{live.title}</h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-purple-400 text-sm font-semibold flex items-center space-x-1">
-                      <span>🎮</span>
-                      <span>{live.category}</span>
-                    </span>
-                    {live.isLive && (
-                      <span className="animate-pulse text-red-500 text-xs font-bold">● AO VIVO</span>
-                    )}
-                  </div>
-                  {!live.isLive && live.scheduledTime && (
-                    <p className="text-gray-400 text-xs mt-2">📅 {live.scheduledTime}</p>
-                  )}
+                <div className={`absolute top-2 left-2 px-2 py-1 text-sm rounded ${
+                  live.isLive ? 'bg-red-600 text-white' : 'bg-gray-700 text-white'
+                }`}>
+                  {live.isLive ? 'AO VIVO' : 'AGENDADO'}
                 </div>
               </div>
-            ))}
-          </div>
+
+              <div className="mt-2">
+                <h3 className="text-white font-bold">{live.title}</h3>
+                <p className="text-gray-400 text-sm">{live.category}</p>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Seção de Twitch Player */}
+        {/* PLAYER + CHAT */}
         {selectedLive && (
-          <div className="mb-12 bg-black rounded-lg p-6 border border-gray-700">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold text-white">{selectedLive.title}</h2>
+          <div className="bg-black p-6 rounded-lg border border-gray-700">
+
+            {/* TOPO */}
+            <div className="flex justify-between mb-4">
+              <h2 className="text-white text-xl font-bold">
+                {selectedLive.title}
+              </h2>
+
               <button
                 onClick={() => setSelectedLive(null)}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                ✕
               </button>
             </div>
 
-            {/* Embed do Twitch */}
-            <div className="bg-black rounded-lg overflow-hidden mb-4" style={{ aspectRatio: '16 / 9' }}>
-              <iframe
-                src={`https://twitch.tv/embed/${selectedLive.twitchUsername}/chat?parent=afabelfilipe1.github.io`}
-                height="600"
-                width="100%"
-                className="w-full"
-                title="Twitch Live"
-                frameBorder="0"
-              />
+            {/* CONTAINER PRINCIPAL */}
+            {selectedLive.isLive ? (
+              <div className="flex flex-col md:flex-row gap-4">
+
+                {/* ESQUERDA - PLAYER */}
+                <div className="md:w-2/3 w-full">
+                  <iframe
+                    src={`https://player.twitch.tv/?channel=${selectedLive.twitchUsername}&parent=afabelfilipe1.github.io`}
+                    height="500"
+                    width="100%"
+                    allowFullScreen
+                    title="Twitch Player"
+                  />
+                </div>
+
+                {/* DIREITA - CHAT */}
+                <div className="md:w-1/3 w-full">
+                  <iframe
+                    src={`https://www.twitch.tv/embed/${selectedLive.twitchUsername}/chat?parent=afabelfilipe1.github.io`}
+                    height="500"
+                    width="100%"
+                    title="Twitch Chat"
+                  />
+                </div>
+
+              </div>
+            ) : (
+              <div className="text-center text-gray-400 p-10">
+                ⏰ Live ainda não começou
+              </div>
+            )}
+
+            {/* DESCRIÇÃO */}
+            <div className="mt-4 text-gray-300">
+              {selectedLive.description}
             </div>
 
-            {/* Informações */}
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-gray-800 p-4 rounded-lg">
-                <p className="text-gray-400 text-sm mb-1">Canal</p>
-                <p className="text-white font-bold">@{selectedLive.twitchUsername}</p>
-              </div>
-              <div className="bg-gray-800 p-4 rounded-lg">
-                <p className="text-gray-400 text-sm mb-1">Categoria</p>
-                <p className="text-white font-bold">{selectedLive.category}</p>
-              </div>
-              <div className="bg-gray-800 p-4 rounded-lg">
-                <p className="text-gray-400 text-sm mb-1">Status</p>
-                <p className={`font-bold ${selectedLive.isLive ? 'text-red-500' : 'text-yellow-500'}`}>
-                  {selectedLive.isLive ? '🔴 AO VIVO' : '⏰ Agendado'}
-                </p>
-              </div>
-            </div>
-
-            {/* Descrição */}
-            <div className="mt-4 p-4 bg-gray-800 rounded-lg">
-              <h3 className="text-white font-bold mb-2">Sobre esta live</h3>
-              <p className="text-gray-300">{selectedLive.description}</p>
-            </div>
-
-            {/* Botão para acessar no Twitch */}
+            {/* BOTÃO */}
             <a
-              href={`https://twitch.tv/${selectedLive.twitchUsername}`}
+              href={`https://www.twitch.tv/${selectedLive.twitchUsername}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-4 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition-colors"
+              className="inline-block mt-4 px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded"
             >
-              Abrir no Twitch →
+              Abrir na Twitch
             </a>
+
           </div>
         )}
 
-        {/* Seção de Informações */}
-        <div className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-lg p-8 border border-purple-700/50">
-          <h2 className="text-2xl font-bold text-white mb-4">📡 Como Participar das Lives</h2>
-          <div className="grid md:grid-cols-2 gap-6 text-gray-300">
-            <div>
-              <h3 className="text-purple-400 font-bold mb-2">✨ Ao Vivo</h3>
-              <p>Clique em uma live com status "AO VIVO" para assistir em tempo real, interagir no chat e participar dos desafios!</p>
-            </div>
-            <div>
-              <h3 className="text-purple-400 font-bold mb-2">📅 Agendadas</h3>
-              <p>Veja as próximas transmissões agendadas, adicione à sua agenda e receba notificações quando forem ao vivo!</p>
-            </div>
-            <div>
-              <h3 className="text-purple-400 font-bold mb-2">💬 Comunidade</h3>
-              <p>Participe do chat, faça perguntas, vote em enquetes e se conecte com outros fãs da comunidade.</p>
-            </div>
-            <div>
-              <h3 className="text-purple-400 font-bold mb-2">🎁 Recompensas</h3>
-              <p>Seguidores regulares podem ganhar pontos de comunidade, badges exclusivas e prêmios surpresa!</p>
-            </div>
-          </div>
-        </div>
-
-        {/* CTA para não logados */}
+        {/* CTA LOGIN */}
         {!user && (
-          <div className="mt-12 text-center p-8 bg-red-900/20 rounded-lg border border-red-700">
-            <h3 className="text-2xl font-bold text-white mb-2">Faça Login para Não Perder Nada!</h3>
-            <p className="text-gray-300 mb-6">Crie sua conta para receber notificações das lives e participar da comunidade.</p>
+          <div className="mt-12 text-center">
             <button
               onClick={() => navigate('/auth')}
-              className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-colors inline-block"
+              className="bg-red-600 px-6 py-3 text-white rounded"
             >
-              Criar Conta Grátis
+              Criar Conta
             </button>
           </div>
         )}
+
       </div>
     </div>
   );
