@@ -29,22 +29,18 @@ const About: React.FC = () => {
         
         <div className="space-y-6 text-gray-300 leading-relaxed">
           <p className="text-lg">
-            Olá! Meu nome é <span className="text-red-400 font-semibold">Felipe Fabel</span> e sou criador de conteúdo dedicado 
-            a compartilhar conhecimento, entretenimento e experiências significativas através de 
-            vídeos e transmissões ao vivo.
+            Olá! Meu nome é <span className="text-red-400 font-semibold">Abel Filipe Cardoso Cândido</span>, mas conhecido como <span className="text-red-400 font-semibold">MasterPllays</span>, e sou criador de conteúdo dedicado a compartilhar conhecimento, entretenimento e experiências significativas através de vídeos e transmissões ao vivo.
           </p>
           
           <p className="text-lg">
-            Sou apaixonado por criar conteúdo de qualidade que inspire, divirta e eduque minha comunidade. 
-            Através da plataforma MasterPllays, trabalho constantemente para trazer o melhor das minhas 
-            produções e interações diretas com meus seguidores.
+            Sou apaixonado por criar conteúdo de qualidade que inspire, divirta e eduque a minha comunidade. 
+            Através da minha plataforma MasterPllays, trabalho constantemente para trazer o melhor das minhas produções e interações diretas com meus seguidores.
           </p>
 
           <div className="bg-black/50 border-l-4 border-red-600 pl-4 py-2 my-6">
             <p className="text-white font-semibold mb-2">🎯 Minha Missão:</p>
             <p className="text-gray-300">
-              Conectar-me com minha comunidade, compartilhar momentos autênticos e criar um espaço 
-              onde todos se sintam bem-vindos a participar de algo especial.
+              Conectar-me com minha comunidade, compartilhar momentos autênticos e criar um espaço onde todos se sintam bem-vindos a participar de algo especial.
             </p>
           </div>
         </div>
@@ -65,8 +61,7 @@ const About: React.FC = () => {
                 Vídeos
               </h3>
               <p className="text-gray-300">
-                Uma biblioteca completa de vídeos selecionados com conteúdo exclusivo, tutoriais 
-                e momentos memoráveis. Acesse toda a produção a qualquer hora.
+                Uma biblioteca completa de vídeos selecionados com conteúdo exclusivo, tutoriais e momentos memoráveis de games e vlogs e conversar com o publico da live. Acesse toda a produção a qualquer hora.
               </p>
             </div>
 
@@ -76,8 +71,7 @@ const About: React.FC = () => {
                 Lives
               </h3>
               <p className="text-gray-300">
-                Transmissões ao vivo onde podemos interagir em tempo real. Participe, faça perguntas 
-                e seja parte da experiência enquanto ela acontece.
+                As Transmissões ao vivo onde vocês podemos interagir em tempo real. Participe, faça perguntas e seja parte da experiência enquanto ela acontece ao vivo.
               </p>
             </div>
 
@@ -87,8 +81,7 @@ const About: React.FC = () => {
                 Planos Premium
               </h3>
               <p className="text-gray-300">
-                Diferentes planos de assinatura para se adequar ao seu orçamento, com benefícios 
-                exclusivos e acesso prioritário ao conteúdo.
+                São diferentes planos de assinatura para se adequar ao seu orçamento, com benefícios exclusivos e acesso prioritário ao conteúdo.
               </p>
             </div>
 
@@ -98,8 +91,7 @@ const About: React.FC = () => {
                 Perfil
               </h3>
               <p className="text-gray-300">
-                Sua conta pessoal onde você pode gerenciar sua assinatura, preferências e 
-                acompanhar todo seu histórico na plataforma.
+                Sua conta pessoal onde você pode gerenciar sua assinatura, preferências e acompanhar todo seu histórico na plataforma.
               </p>
             </div>
           </div>
