@@ -182,6 +182,11 @@ export const VIDEOS: Video[] = [
 
 export const PLANS: Plan[] = [
   {
+    nome: 'Grátis',
+    preco: 'R$ 0/mês',
+    recursos: ['Acesso limitado a vídeos gratuitos', 'Qualidade SD', '1 tela simultânea']
+  },
+  {
     nome: 'Básico',
     preco: 'R$ 19,90/mês',
     recursos: ['Acesso a vídeos básicos', 'Qualidade SD', '1 tela simultânea']
