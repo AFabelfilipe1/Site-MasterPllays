@@ -179,13 +179,12 @@ const Header: React.FC = () => {
                 Sobre Mim
               </Link>
               <Link
-                  to="/profile"
-                  className="block px-3 py-2 text-white hover:text-red-400 transition-colors duration-200 font-medium"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Meu Perfil
-                </Link>
-              )}
+                to="/profile"
+                className="block px-3 py-2 text-white hover:text-red-400 transition-colors duration-200 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Meu Perfil
+              </Link>
             </div>
           </div>
         )}
