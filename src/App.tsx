@@ -8,6 +8,7 @@ import Auth from './pages/Auth'
 import Profile from './pages/Profile'
 import Planos from './pages/Planos'
 import Pagamento from './pages/Pagamento'
+import About from './pages/About'
 import NotFound from './pages/NotFound'
 import SimpleTest from './components/SimpleTest'
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/videos" element={<Videos />} />
           <Route path="/lives" element={<Lives />} />
+          <Route path="/about" element={<About />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/planos" element={<Planos />} />

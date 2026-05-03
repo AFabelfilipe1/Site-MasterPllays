@@ -8,7 +8,7 @@ export const VIDEOS: Video[] = [
     thumbnail: 'https://img.youtube.com/vi/zDLGiBsD2W4/sddefault.jpg',
     category: 'Games',
     duration: '15:32',
-    views: '1K',
+    views: '449',
     uploadDate: '2026-04-29',
     isNew: true,
     isFeatured: true,

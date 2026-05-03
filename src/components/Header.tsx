@@ -54,6 +54,12 @@ const Header: React.FC = () => {
             >
               Planos
             </Link>
+            <Link
+              to="/about"
+              className="text-white hover:text-red-400 transition-colors duration-200 font-medium"
+            >
+              Sobre
+            </Link>
           </nav>
 
           {/* User Menu */}
@@ -151,14 +157,28 @@ const Header: React.FC = () => {
                 Vídeos
               </Link>
               <Link
+                to="/lives"
+                className="block px-3 py-2 text-white hover:text-red-400 transition-colors duration-200 font-medium flex items-center space-x-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span className="animate-pulse text-red-500">🔴</span>
+                <span>Lives</span>
+              </Link>
+              <Link
                 to="/planos"
                 className="block px-3 py-2 text-white hover:text-red-400 transition-colors duration-200 font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Planos
               </Link>
-              {user && (
-                <Link
+              <Link
+                to="/about"
+                className="block px-3 py-2 text-white hover:text-red-400 transition-colors duration-200 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Sobre Mim
+              </Link>
+              <Link
                   to="/profile"
                   className="block px-3 py-2 text-white hover:text-red-400 transition-colors duration-200 font-medium"
                   onClick={() => setIsMenuOpen(false)}
