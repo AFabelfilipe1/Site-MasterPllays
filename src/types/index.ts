@@ -14,9 +14,24 @@ export interface Video {
   tags?: string[];
 }
 
+export interface Playlist {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  thumbnail: string;
+  videoCount: number;
+  videoIds: string[];
+  creator?: string;
+  isNew?: boolean;
+}
+
 export interface Plan {
   nome: string;
-  preco: string;
+  precoBase: string;
+  desconto?: number;
+  precoComDesconto?: string;
+  periodoDesconto?: string;
   recursos: string[];
 }
 

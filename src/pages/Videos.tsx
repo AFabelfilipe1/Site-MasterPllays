@@ -1,46 +1,54 @@
 // src/pages/Videos.tsx
 import React, { useState, useMemo } from 'react';
 import VideoModal from '../components/VideoModal';
-import { Video } from '../types';
-import { VIDEOS, VIDEO_CATEGORIES } from '../types/data';
+import { Video, Playlist } from '../types';
+import { VIDEOS, PLAYLISTS, VIDEO_CATEGORIES } from '../types/data';
 
 const Videos: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Todos');
-  const [sortBy, setSortBy] = useState('recentes');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [expandedPlaylists, setExpandedPlaylists] = useState<Set<string>>(new Set());
 
-  const filteredAndSortedVideos = useMemo(() => {
-    const filtered = VIDEOS.filter(video => {
-      const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          (video.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())) ?? false);
-      const matchesCategory = selectedCategory === 'Todos' || video.category === selectedCategory;
-      return matchesSearch && matchesCategory;
-    });
+  const togglePlaylistExpanded = (playlistId: string) => {
+    const newSet = new Set(expandedPlaylists);
+    if (newSet.has(playlistId)) {
+      newSet.delete(playlistId);
+    } else {
+      newSet.add(playlistId);
+    }
+    setExpandedPlaylists(newSet);
+  };
 
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case 'recentes':
-          return new Date(b.uploadDate || '').getTime() - new Date(a.uploadDate || '').getTime();
-        case 'visualizacoes':
-          return (parseFloat(b.views?.replace('K', '') || '0') || 0) - (parseFloat(a.views?.replace('K', '') || '0') || 0);
-        case 'duracao':
-          return (parseInt(b.duration.split(':')[0]) || 0) - (parseInt(a.duration.split(':')[0]) || 0);
-        default:
-          return 0;
-      }
-    });
+  const filteredPlaylists = useMemo(() => {
+    let playlists = PLAYLISTS;
 
-    return filtered;
-  }, [searchTerm, selectedCategory, sortBy]);
+    if (selectedCategory !== 'Todos') {
+      playlists = playlists.filter(p => p.category === selectedCategory);
+    }
 
-  const VideoCard: React.FC<{ video: Video; isListView?: boolean }> = ({ video, isListView = false }) => (
-    <div 
-      className={`group cursor-pointer ${isListView ? 'flex bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700' : ''} transition-all duration-300`}
+    if (searchTerm) {
+      playlists = playlists.filter(p =>
+        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    return playlists;
+  }, [searchTerm, selectedCategory]);
+
+  const getVideosByPlaylist = (videoIds: string[]): Video[] => {
+    return videoIds
+      .map(id => VIDEOS.find(v => v.id === id))
+      .filter((v): v is Video => v !== undefined);
+  };
+
+  const VideoCard: React.FC<{ video: Video }> = ({ video }) => (
+    <div
+      className="group cursor-pointer bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-all duration-300"
       onClick={() => setSelectedVideo(video)}
     >
-      <div className={`relative overflow-hidden bg-gray-800 ${isListView ? 'w-48 flex-shrink-0' : 'aspect-video'} rounded-lg`}>
+      <div className="relative overflow-hidden aspect-video">
         <img
           src={video.thumbnail}
           alt={video.title}
@@ -51,7 +59,7 @@ const Videos: React.FC = () => {
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="w-12 h-12 bg-red-600/90 rounded-full flex items-center justify-center">
             <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z"/>
+              <path d="M8 5v14l11-7z" />
             </svg>
           </div>
         </div>
@@ -67,40 +75,114 @@ const Videos: React.FC = () => {
         )}
       </div>
 
-      <div className={`flex-1 p-4 ${isListView ? '' : 'mt-3'}`}>
-        <h3 className="text-white font-semibold text-sm group-hover:text-red-400 transition-colors duration-200 line-clamp-2 mb-1">
+      <div className="p-3">
+        <h4 className="text-white font-semibold text-sm group-hover:text-red-400 transition-colors duration-200 line-clamp-2 mb-1">
           {video.title}
-        </h3>
-        <div className="flex items-center text-gray-400 text-xs space-x-2 mb-2">
-          <span>{video.category}</span>
-          <span>•</span>
+        </h4>
+        <div className="flex items-center text-gray-400 text-xs space-x-2">
           <span>{video.views} visualizações</span>
           <span>•</span>
-          <span>{video.uploadDate ? new Date(video.uploadDate).toLocaleDateString('pt-BR') : 'Data desconhecida'}</span>
-        </div>
-        <div className="flex flex-wrap gap-1">
-          {video.tags?.slice(0, 3).map((tag) => (
-            <span key={tag} className="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">
-              {tag}
-            </span>
-          ))}
+          <span>{video.duration}</span>
         </div>
       </div>
     </div>
   );
 
-  return (
-    <div className="min-h-screen bg-black pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  const PlaylistCard: React.FC<{ playlist: Playlist }> = ({ playlist }) => {
+    const isExpanded = expandedPlaylists.has(playlist.id);
+    const videos = getVideosByPlaylist(playlist.videoIds);
 
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Biblioteca de Vídeos</h1>
-          <p className="text-gray-400">Explore nossa coleção completa de conteúdo premium</p>
+    return (
+      <div className="bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-all duration-300 mb-4">
+        <div
+          className="cursor-pointer p-4 flex items-start gap-4"
+          onClick={() => togglePlaylistExpanded(playlist.id)}
+        >
+          <img
+            src={playlist.thumbnail}
+            alt={playlist.name}
+            className="w-24 h-24 rounded object-cover flex-shrink-0"
+          />
+
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex-1">
+                <h3 className="text-white font-bold text-lg hover:text-red-400 transition-colors">
+                  {playlist.name}
+                </h3>
+                {playlist.isNew && (
+                  <span className="inline-block bg-red-600 text-white text-xs px-2 py-0.5 rounded font-semibold mt-1">
+                    NOVO
+                  </span>
+                )}
+              </div>
+              <svg
+                className={`w-6 h-6 text-red-500 flex-shrink-0 transition-transform duration-300 ${
+                  isExpanded ? 'rotate-180' : ''
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </svg>
+            </div>
+
+            <p className="text-gray-300 text-sm mt-2 line-clamp-2">{playlist.description}</p>
+
+            <div className="flex items-center text-gray-400 text-xs mt-3 space-x-3">
+              <span>{playlist.videoCount} vídeo{playlist.videoCount !== 1 ? 's' : ''}</span>
+              {playlist.creator && (
+                <>
+                  <span>•</span>
+                  <span>{playlist.creator}</span>
+                </>
+              )}
+            </div>
+          </div>
         </div>
 
+        {isExpanded && videos.length > 0 && (
+          <div className="border-t border-gray-700 bg-gray-900/50 p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {videos.map((video) => (
+                <VideoCard key={video.id} video={video} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const categoriesWithPlaylists = useMemo(() => {
+    const categories = selectedCategory === 'Todos' 
+      ? VIDEO_CATEGORIES.filter(cat => cat !== 'Todos')
+      : [selectedCategory];
+
+    return categories.map(cat => ({
+      category: cat,
+      playlists: filteredPlaylists.filter(p => p.category === cat)
+    })).filter(item => item.playlists.length > 0);
+  }, [filteredPlaylists, selectedCategory]);
+
+  return (
+    <div className="min-h-screen bg-black pt-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-white mb-2">Biblioteca de Vídeos</h1>
+          <p className="text-gray-400">Explore nossas coleções organizadas em playlists temáticas</p>
+        </div>
+
+        {/* Filtros */}
         <div className="bg-gray-900 rounded-lg p-6 mb-8">
           <div className="flex flex-col lg:flex-row gap-4">
-
             <div className="flex-1">
               <div className="relative">
                 <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,7 +190,7 @@ const Videos: React.FC = () => {
                 </svg>
                 <input
                   type="text"
-                  placeholder="Buscar vídeos, tags, categorias..."
+                  placeholder="Buscar playlists..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
@@ -129,58 +211,24 @@ const Videos: React.FC = () => {
                 ))}
               </select>
             </div>
-
-            <div className="w-full lg:w-48">
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-              >
-                <option value="recentes" className="bg-gray-800">Mais Recentes</option>
-                <option value="visualizacoes" className="bg-gray-800">Mais Visualizados</option>
-                <option value="duracao" className="bg-gray-800">Maior Duração</option>
-              </select>
-            </div>
-
-            <div className="flex bg-gray-800 rounded-lg p-1">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`p-2 rounded ${viewMode === 'grid' ? 'bg-red-600 text-white' : 'text-gray-400 hover:text-white'}`}
-                aria-label="Grid view"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z"/>
-                </svg>
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={`p-2 rounded ${viewMode === 'list' ? 'bg-red-600 text-white' : 'text-gray-400 hover:text-white'}`}
-                aria-label="List view"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/>
-                </svg>
-              </button>
-            </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-gray-400">
-            {filteredAndSortedVideos.length} vídeo{filteredAndSortedVideos.length !== 1 ? 's' : ''} encontrado{filteredAndSortedVideos.length !== 1 ? 's' : ''}
-            {searchTerm && ` para "${searchTerm}"`}
-            {selectedCategory !== 'Todos' && ` em ${selectedCategory}`}
-          </p>
-        </div>
-
-        {filteredAndSortedVideos.length > 0 ? (
-          <div className={
-            viewMode === 'grid'
-              ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
-              : 'space-y-4'
-          }>
-            {filteredAndSortedVideos.map((video) => (
-              <VideoCard key={video.id} video={video} isListView={viewMode === 'list'} />
+        {/* Conteúdo */}
+        {categoriesWithPlaylists.length > 0 ? (
+          <div className="space-y-8">
+            {categoriesWithPlaylists.map(({ category, playlists }) => (
+              <div key={category}>
+                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                  <div className="w-1 h-8 bg-red-600 rounded" />
+                  {category}
+                </h2>
+                <div className="space-y-4">
+                  {playlists.map((playlist) => (
+                    <PlaylistCard key={playlist.id} playlist={playlist} />
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         ) : (
@@ -188,16 +236,8 @@ const Videos: React.FC = () => {
             <svg className="w-16 h-16 text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
-            <h3 className="text-xl font-semibold text-white mb-2">Nenhum vídeo encontrado</h3>
+            <h3 className="text-xl font-semibold text-white mb-2">Nenhuma playlist encontrada</h3>
             <p className="text-gray-400">Tente ajustar os filtros de busca ou categoria.</p>
-          </div>
-        )}
-
-        {filteredAndSortedVideos.length >= 12 && (
-          <div className="text-center mt-12">
-            <button className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200">
-              Carregar Mais Vídeos
-            </button>
           </div>
         )}
       </div>

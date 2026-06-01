@@ -1,4 +1,4 @@
-import { Video, Plan } from './index';
+import { Video, Plan, Playlist } from './index';
 
 export const VIDEOS: Video[] = [
   {
@@ -13,7 +13,7 @@ export const VIDEOS: Video[] = [
     isNew: true,
     isFeatured: true,
     description: 'Iniciando uma nova jornada de sobrevivência no Minecraft! Começando do zero, sozinho no meio do nada. Vamos construir uma base, conseguir recursos e aprender a sobreviver neste mundo hostil.',
-    creator: 'GamerPlayer',
+    creator: 'MasterPllays',
     tags: ['Minecraft', 'Gameplay', 'Sobrevivência', 'Let\'s Play']
   },
   {
@@ -180,26 +180,190 @@ export const VIDEOS: Video[] = [
   }
 ];
 
+export const PLAYLISTS: Playlist[] = [
+  // Games
+  {
+    id: 'pl-games-minecraft',
+    name: 'Minecraft Adventures',
+    category: 'Games',
+    description: 'Série completa de sobrevivência no Minecraft. Aprenda técnicas e construa estruturas incríveis!',
+    thumbnail: 'https://img.youtube.com/vi/zDLGiBsD2W4/sddefault.jpg',
+    videoCount: 1,
+    videoIds: ['13'],
+    creator: 'MasterPllays',
+    isNew: true
+  },
+  {
+    id: 'pl-games-indie',
+    name: 'Indie Games Discovery',
+    category: 'Games',
+    description: 'Descubra os melhores jogos indie de 2024. Reviews e gameplay de títulos independentes inovadores.',
+    thumbnail: 'https://images.unsplash.com/photo-1556438064-2d7646166914?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['7'],
+    creator: 'GameReviewer'
+  },
+
+  // Programação
+  {
+    id: 'pl-prog-frontend',
+    name: 'Frontend Moderno com React',
+    category: 'Programação',
+    description: 'Aprenda React do básico ao avançado. Hooks, Context API e muito mais!',
+    thumbnail: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['1'],
+    creator: 'DevMaster',
+    isNew: true
+  },
+  {
+    id: 'pl-prog-mobile',
+    name: 'React Native - Desenvolvimento Mobile',
+    category: 'Programação',
+    description: 'Crie aplicativos móveis profissionais com React Native. Do iniciante ao avançado.',
+    thumbnail: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['10'],
+    creator: 'MobileDev',
+    isNew: true
+  },
+
+  // Design
+  {
+    id: 'pl-design-ui-ux',
+    name: 'Design de Interfaces - UI/UX',
+    category: 'Design',
+    description: 'Domine Figma e crie interfaces modernas. Desde conceitos básicos até projetos complexos.',
+    thumbnail: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['2'],
+    creator: 'DesignPro'
+  },
+  {
+    id: 'pl-design-illustration',
+    name: 'Ilustração Digital',
+    category: 'Design',
+    description: 'Aprenda ilustração digital com técnicas profissionais. Do básico ao avançado.',
+    thumbnail: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['11'],
+    creator: 'DigitalArtist'
+  },
+
+  // IA
+  {
+    id: 'pl-ia-basics',
+    name: 'Introdução à Inteligência Artificial',
+    category: 'IA',
+    description: 'Fundamentos da IA e Machine Learning. Conceitos essenciais para iniciantes.',
+    thumbnail: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['3'],
+    creator: 'AI Expert',
+    isNew: true
+  },
+  {
+    id: 'pl-ia-deep-learning',
+    name: 'Deep Learning Avançado',
+    category: 'IA',
+    description: 'Redes neurais profundas com TensorFlow. Algoritmos e implementações práticas.',
+    thumbnail: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['12'],
+    creator: 'DataScientist',
+    isNew: true
+  },
+
+  // Fotografia
+  {
+    id: 'pl-photo-advanced',
+    name: 'Fotografia Profissional',
+    category: 'Fotografia',
+    description: 'Técnicas avançadas de fotografia e edição de imagens. Domine a câmera como um profissional.',
+    thumbnail: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['4'],
+    creator: 'PhotoMaster'
+  },
+
+  // Música
+  {
+    id: 'pl-music-electronic',
+    name: 'Produção de Música Eletrônica',
+    category: 'Música',
+    description: 'Crie músicas eletrônicas profissionais. Ferramentas, técnicas e dicas de produção.',
+    thumbnail: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['5'],
+    creator: 'MusicProducer'
+  },
+
+  // Viagem
+  {
+    id: 'pl-travel-world',
+    name: 'Viagem pelo Mundo',
+    category: 'Viagem',
+    description: 'Explore os destinos mais incríveis do mundo. Dicas, curiosidades e roteiros completos.',
+    thumbnail: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['6'],
+    creator: 'TravelExplorer'
+  },
+
+  // Culinária
+  {
+    id: 'pl-culinary-gourmet',
+    name: 'Culinária Gourmet',
+    category: 'Culinária',
+    description: 'Receitas premium preparadas por chefs renomados. Técnicas e segredos da culinária fina.',
+    thumbnail: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['8'],
+    creator: 'ChefGourmet'
+  },
+
+  // Fitness
+  {
+    id: 'pl-fitness-complete',
+    name: 'Fitness e Saúde',
+    category: 'Fitness',
+    description: 'Rotina completa de exercícios e dicas de saúde. Transforme seu corpo e mente.',
+    thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=225&fit=crop',
+    videoCount: 1,
+    videoIds: ['9'],
+    creator: 'FitnessCoach'
+  }
+];
+
 export const PLANS: Plan[] = [
   {
     nome: 'Grátis',
-    preco: 'R$ 0/mês',
-    recursos: ['Acesso limitado a vídeos gratuitos', 'Qualidade SD', '1 tela simultânea']
+    precoBase: 'R$ 0/mês',
+    recursos: ['Acesso limitado a vídeos gratuitos', 'Qualidade SD', '1 tela simultânea', 'Anuncios']
   },
   {
     nome: 'Básico',
-    preco: 'R$ 19,90/mês',
-    recursos: ['Acesso a vídeos básicos', 'Qualidade SD', '1 tela simultânea']
+    precoBase: 'R$ 19,90/mês',
+    desconto: 25,
+    precoComDesconto: 'R$ 14,93/mês',
+    periodoDesconto: '6 meses iniciais',
+    recursos: ['Acesso a vídeos básicos', 'Qualidade SD', '1 tela simultânea', 'Sem anuncios']
+  },
+  {
+    nome: 'Padrão',
+    precoBase: 'R$ 39,90/mês',
+    desconto: 25,
+    precoComDesconto: 'R$ 29,93/mês',
+    periodoDesconto: '6 meses iniciais',
+    recursos: ['Acesso a todos os vídeos', 'Qualidade Full HD', '3 telas simultâneas', 'Conteúdo exclusivo', 'Sem anuncios']
   },
   {
     nome: 'Premium',
-    preco: 'R$ 39,90/mês',
-    recursos: ['Acesso a todos os vídeos', 'Qualidade Full HD', '3 telas simultâneas', 'Conteúdo exclusivo']
-  },
-  {
-    nome: 'Master',
-    preco: 'R$ 59,90/mês',
-    recursos: ['Acesso a todos os vídeos', 'Qualidade 4K', 'Telas ilimitadas', 'Conteúdo exclusivo', 'Suporte prioritário']
+    precoBase: 'R$ 59,90/mês',
+    desconto: 25,
+    precoComDesconto: 'R$ 44,93/mês',
+    periodoDesconto: '6 meses iniciais',
+    recursos: ['Acesso a todos os vídeos', 'Qualidade 4K', 'Telas ilimitadas', 'Conteúdo exclusivo', 'Sem anuncios']
   }
 ];
 
