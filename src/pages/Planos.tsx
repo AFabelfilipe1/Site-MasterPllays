@@ -29,7 +29,18 @@ export default function Planos() {
           {PLANS.map((plano) => (
             <div key={plano.nome} className="border border-gray-700 rounded-lg p-6 shadow-lg hover:shadow-xl hover:border-red-600 transition-all bg-gray-900">
               <h2 className="text-2xl font-bold mb-4 text-white">{plano.nome}</h2>
-              <p className="text-3xl font-bold text-red-600 mb-6">{plano.preco}</p>
+              
+              <div className="mb-6">
+                {plano.desconto ? (
+                  <div>
+                    <p className="text-sm text-gray-400 line-through mb-2">{plano.precoBase}</p>
+                    <p className="text-3xl font-bold text-red-600">{plano.precoComDesconto}</p>
+                    <p className="text-xs text-green-500 mt-2">{plano.desconto}% OFF - {plano.periodoDesconto}</p>
+                  </div>
+                ) : (
+                  <p className="text-3xl font-bold text-red-600">{plano.precoBase}</p>
+                )}
+              </div>
 
               <ul className="space-y-3 mb-8">
                 {plano.recursos.map((recurso) => (
@@ -41,7 +52,7 @@ export default function Planos() {
               </ul>
 
               <button
-                onClick={() => handleChoosePlan(plano.nome, plano.preco)}
+                onClick={() => handleChoosePlan(plano.nome, plano.precoComDesconto || plano.precoBase)}
                 className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition-colors duration-200"
               >
                 {user ? 'Escolher Plano' : 'Faça login para continuar'}
