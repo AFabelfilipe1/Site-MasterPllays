@@ -1,12 +1,17 @@
 // src/pages/Videos.tsx
 import React, { useState, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import VideoModal from '../components/VideoModal';
 import { Video, Playlist } from '../types';
-import { VIDEOS, PLAYLISTS, VIDEO_CATEGORIES } from '../types/data';
+import { isRecentlyUploaded, VIDEOS, PLAYLISTS, VIDEO_CATEGORIES } from '../types/data';
 
 const Videos: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const requestedCategory = searchParams.get('category');
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('Todos');
+  const [selectedCategory, setSelectedCategory] = useState(
+    VIDEO_CATEGORIES.includes(requestedCategory || '') ? requestedCategory || 'Todos' : 'Todos'
+  );
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [expandedPlaylists, setExpandedPlaylists] = useState<Set<string>>(new Set());
 
@@ -68,7 +73,7 @@ const Videos: React.FC = () => {
           {video.duration}
         </div>
 
-        {video.isNew && (
+        {isRecentlyUploaded(video.uploadDate) && (
           <div className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-semibold">
             NOVO
           </div>
@@ -110,11 +115,6 @@ const Videos: React.FC = () => {
                 <h3 className="text-white font-bold text-lg hover:text-red-400 transition-colors">
                   {playlist.name}
                 </h3>
-                {playlist.isNew && (
-                  <span className="inline-block bg-red-600 text-white text-xs px-2 py-0.5 rounded font-semibold mt-1">
-                    NOVO
-                  </span>
-                )}
               </div>
               <svg
                 className={`w-6 h-6 text-red-500 flex-shrink-0 transition-transform duration-300 ${

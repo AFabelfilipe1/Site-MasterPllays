@@ -11,9 +11,10 @@ interface VideoModalProps {
 const VideoModal: React.FC<VideoModalProps> = ({ video, isOpen, onClose }) => {
   if (!isOpen || !video) return null;
 
-  // Construir URL do vídeo (usando youtubeId se disponível, senão usar id)
-  const youtubeId = video.youtubeId || video.id;
-  const videoUrl = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&controls=1`;
+  const youtubeId = video.youtubeId;
+  const videoUrl = youtubeId && /^[\w-]{11}$/.test(youtubeId)
+    ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1&controls=1`
+    : null;
 
   return (
     <div
@@ -36,9 +37,15 @@ const VideoModal: React.FC<VideoModalProps> = ({ video, isOpen, onClose }) => {
         </button>
 
         {/* Player de vídeo */}
-        <div className="w-full bg-black rounded-lg overflow-hidden">
-          <VideoPlayer videoUrl={videoUrl} />
-        </div>
+        {videoUrl ? (
+          <div className="w-full bg-black rounded-lg overflow-hidden">
+            <VideoPlayer videoUrl={videoUrl} />
+          </div>
+        ) : (
+          <p className="rounded-lg bg-gray-900 p-8 text-center text-gray-300">
+            O vídeo ainda não tem um link de reprodução válido.
+          </p>
+        )}
 
         {/* Informações do vídeo */}
         <div className="mt-4 text-white">

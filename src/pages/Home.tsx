@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import VideoModal from '../components/VideoModal';
 import { Video } from '../types';
-import { VIDEOS } from '../types/data';
+import { isRecentlyUploaded, VIDEOS } from '../types/data';
 
 interface CarouselProps {
   videos: Video[];
@@ -106,7 +106,7 @@ const VideoCarousel: React.FC<CarouselProps> = ({ videos, title, subtitle, onVid
                 {video.duration}
               </div>
 
-              {video.isNew && (
+              {isRecentlyUploaded(video.uploadDate) && (
                 <div className="absolute top-3 left-3 bg-gradient-to-r from-red-600 to-red-700 text-white text-xs px-3 py-1 rounded-full font-bold shadow-lg">
                   ✨ NOVO
                 </div>
@@ -255,9 +255,9 @@ const Home: React.FC = () => {
         {/* Em Alta */}
         <div className="mb-20">
           <VideoCarousel
-            videos={VIDEOS.filter(v => v.isNew).slice(0, 8)}
-            title="🔥 Em Alta Agora"
-            subtitle="Conteúdo mais assistido agora"
+            videos={VIDEOS.slice(0, 8)}
+            title="🎬 Vídeos da Biblioteca"
+            subtitle="Explore os vídeos disponíveis para assistir"
             onVideoClick={setSelectedVideo}
           />
         </div>

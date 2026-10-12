@@ -1,25 +1,22 @@
-﻿# MasterPllays
+# MasterPllays
 
-Site de streaming de conteúdo em React, TypeScript e Vite, com autenticação Firebase e páginas de vídeos, lives, planos e perfil.
+Site de vídeos, transmissões, planos e perfil, desenvolvido com React, TypeScript, Vite, Tailwind CSS e Firebase Authentication.
 
 ## Executar localmente
 
-1. Instale as dependências com `npm install`.
-2. Copie `.env.local.example` para `.env.local` e configure os dados do Firebase.
-3. Inicie o servidor com `npm run dev`.
+1. Instale o Node.js 20 ou superior.
+2. Execute `npm ci`.
+3. Copie `.env.local.example` para `.env.local` e preencha as credenciais do Firebase.
+4. Execute `npm run dev`.
 
-## Verificações
+`npm run lint` verifica o código e `npm run build` executa o TypeScript e compila o site.
 
-- `npm run build` compila a aplicação para produção.
-- `npm run lint` verifica o código.
-- `npm run preview` abre localmente a build de produção.
+## Publicar no GitHub Pages
 
-## Publicação no GitHub Pages
+O branch `main` contém o código-fonte. Ao enviar alterações para `main`, o GitHub Actions instala as dependências, executa o lint e o build e publica somente os arquivos compilados na raiz de `gh-pages`. O workflow também configura automaticamente o GitHub Pages para servir `gh-pages` na raiz.
 
-A branch `main` contém o código-fonte. O workflow em `.github/workflows/deploy.yml` compila o site e publica o conteúdo de `dist/` na branch `gh-pages`. Nas configurações do repositório, selecione GitHub Pages → Deploy from a branch → `gh-pages` → `/(root)`.
-
-Configure os segredos `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIREBASE_MESSAGING_SENDER_ID` e `VITE_FIREBASE_APP_ID` no repositório se quiser habilitar a autenticação no site publicado.
+Para habilitar login e cadastro na versão publicada, adicione os valores Firebase de `.env.local.example` como secrets do repositório. Sem essa configuração, o site continua disponível, mas a autenticação não pode ser usada.
 
 ## Pagamentos
 
-O projeto não está integrado a um gateway de pagamento. A página de checkout informa isso e não coleta dados financeiros nem simula cobranças.
+Este projeto ainda não está integrado a um gateway de pagamento. O checkout explica essa limitação e não coleta dados financeiros nem simula cobranças.
