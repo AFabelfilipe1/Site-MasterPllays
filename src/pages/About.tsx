@@ -1,188 +1,285 @@
-// src/pages/About.tsx
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const About: React.FC = () => {
   return (
-    <div className="pt-20 md:pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-      {/* Header Section */}
-      <div className="text-center mb-16">
-        <div className="mb-6">
-          <div className="w-32 h-32 mx-auto bg-gradient-to-br from-red-600 to-red-800 rounded-full flex items-center justify-center shadow-2xl">
-            <span className="text-white font-bold text-6xl">M</span>
+    <main className="min-h-screen bg-black px-4 pb-16 pt-24 text-white sm:px-6 md:pt-28 lg:px-8">
+      <div className="mx-auto max-w-5xl">
+
+        {/* Hero */}
+        <section className="mb-20 text-center">
+          <div className="mx-auto mb-8 flex h-28 w-28 items-center justify-center rounded-full border border-red-500/30 bg-gradient-to-br from-red-500 to-red-900 shadow-2xl shadow-red-950/40 sm:h-36 sm:w-36">
+            <span className="text-6xl font-black tracking-tight sm:text-7xl">
+              M
+            </span>
           </div>
-        </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-          Bem-vindo ao MasterPllays
-        </h1>
-        <p className="text-xl text-gray-400 mb-8">
-          Conheça mais sobre mim e o propósito deste espaço
-        </p>
-      </div>
 
-      {/* About Me Section */}
-      <div className="mb-16 bg-gradient-to-br from-gray-900 to-black p-8 md:p-12 rounded-2xl border border-gray-800 hover:border-red-600 transition-colors duration-300">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 flex items-center">
-          <span className="w-2 h-8 bg-red-600 mr-4 rounded"></span>
-          Sobre Mim
-        </h2>
-        
-        <div className="space-y-6 text-gray-300 leading-relaxed">
-          <p className="text-lg">
-            Olá! Meu nome é <span className="text-red-400 font-semibold">Abel Filipe Cardoso Cândido</span>, mas conhecido como <span className="text-red-400 font-semibold">MasterPllays</span>, e sou criador de conteúdo dedicado a compartilhar conhecimento, entretenimento e experiências significativas através de vídeos e transmissões ao vivo.
-          </p>
-          
-          <p className="text-lg">
-            Sou apaixonado por criar conteúdo de qualidade que inspire, divirta e eduque a minha comunidade. 
-            Através da minha plataforma MasterPllays, trabalho constantemente para trazer o melhor das minhas produções e interações diretas com meus seguidores.
-          </p>
+          <span className="mb-4 inline-block rounded-full border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-400">
+            CONHEÇA O MASTERPLLAYS
+          </span>
 
-          <div className="bg-black/50 border-l-4 border-red-600 pl-4 py-2 my-6">
-            <p className="text-white font-semibold mb-2">🎯 Minha Missão:</p>
-            <p className="text-gray-300">
-              Conectar-me com minha comunidade, compartilhar momentos autênticos e criar um espaço onde todos se sintam bem-vindos a participar de algo especial.
+          <h1 className="mb-5 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
+            Bem-vindo ao{' '}
+            <span className="text-red-500">MasterPllays</span>
+          </h1>
+
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-400 sm:text-lg">
+            Um espaço dedicado aos games, à criatividade e ao entretenimento,
+            onde compartilho vídeos, transmissões ao vivo e momentos especiais
+            com a comunidade.
+          </p>
+        </section>
+
+        {/* About Me */}
+        <section className="mb-16 rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-6 shadow-xl sm:p-10 md:p-12">
+          <SectionTitle>Sobre Mim</SectionTitle>
+
+          <div className="space-y-5 leading-relaxed text-gray-300">
+            <p className="text-lg">
+              Olá! Sou{' '}
+              <span className="font-semibold text-red-400">
+                Abel Filipe
+              </span>
+              , conhecido na internet como{' '}
+              <span className="font-semibold text-red-400">
+                MasterPllays
+              </span>
+              .
             </p>
-          </div>
-        </div>
-      </div>
 
-      {/* About the Platform */}
-      <div className="mb-16 bg-gradient-to-br from-black to-gray-900 p-8 md:p-12 rounded-2xl border border-gray-800 hover:border-red-600 transition-colors duration-300">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 flex items-center">
-          <span className="w-2 h-8 bg-red-600 mr-4 rounded"></span>
-          Sobre a Plataforma
-        </h2>
+            <p>
+              Sou criador de conteúdo e apaixonado pelo universo dos games.
+              Gosto de explorar diferentes jogos, compartilhar experiências,
+              produzir vídeos e transmitir momentos de diversão ao vivo.
+            </p>
 
-        <div className="space-y-8">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-gradient-to-br from-red-900/20 to-red-800/5 p-6 rounded-xl border border-red-800/30">
-              <h3 className="text-xl font-bold text-red-400 mb-3 flex items-center">
-                <span className="text-2xl mr-2">📹</span>
-                Vídeos
+            <p>
+              O MasterPllays nasceu como um espaço para reunir minhas
+              produções e aproximar ainda mais o conteúdo que crio das pessoas
+              que acompanham meu trabalho.
+            </p>
+
+            <div className="rounded-xl border-l-4 border-red-600 bg-black/50 p-5">
+              <h3 className="mb-2 font-bold text-white">
+                🎯 Minha missão
               </h3>
-              <p className="text-gray-300">
-                Uma biblioteca completa de vídeos selecionados com conteúdo exclusivo, tutoriais e momentos memoráveis de games e vlogs e conversar com o publico da live. Acesse toda a produção a qualquer hora.
-              </p>
-            </div>
 
-            <div className="bg-gradient-to-br from-red-900/20 to-red-800/5 p-6 rounded-xl border border-red-800/30">
-              <h3 className="text-xl font-bold text-red-400 mb-3 flex items-center">
-                <span className="text-2xl mr-2">🔴</span>
-                Lives
-              </h3>
               <p className="text-gray-300">
-                As Transmissões ao vivo onde vocês podemos interagir em tempo real. Participe, faça perguntas e seja parte da experiência enquanto ela acontece ao vivo.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-red-900/20 to-red-800/5 p-6 rounded-xl border border-red-800/30">
-              <h3 className="text-xl font-bold text-red-400 mb-3 flex items-center">
-                <span className="text-2xl mr-2">💎</span>
-                Planos Premium
-              </h3>
-              <p className="text-gray-300">
-                São diferentes planos de assinatura para se adequar ao seu orçamento, com benefícios exclusivos e acesso prioritário ao conteúdo.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-red-900/20 to-red-800/5 p-6 rounded-xl border border-red-800/30">
-              <h3 className="text-xl font-bold text-red-400 mb-3 flex items-center">
-                <span className="text-2xl mr-2">👤</span>
-                Perfil
-              </h3>
-              <p className="text-gray-300">
-                Sua conta pessoal onde você pode gerenciar sua assinatura, preferências e acompanhar todo seu histórico na plataforma.
+                Criar e compartilhar conteúdo que proporcione entretenimento,
+                incentive a interação e construa uma comunidade acolhedora,
+                na qual todos possam participar e aproveitar experiências
+                relacionadas ao mundo dos games.
               </p>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Features Section */}
-      <div className="mb-16 bg-gradient-to-br from-gray-900 to-black p-8 md:p-12 rounded-2xl border border-gray-800 hover:border-red-600 transition-colors duration-300">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 flex items-center">
-          <span className="w-2 h-8 bg-red-600 mr-4 rounded"></span>
-          Por Que Escolher MasterPllays?
-        </h2>
+        {/* About Platform */}
+        <section className="mb-16 rounded-2xl border border-gray-800 bg-gradient-to-br from-black to-gray-900 p-6 shadow-xl sm:p-10 md:p-12">
+          <SectionTitle>Sobre a Plataforma</SectionTitle>
 
-        <ul className="space-y-4">
-          <li className="flex items-start space-x-4">
-            <span className="text-red-500 text-2xl flex-shrink-0">✓</span>
-            <div>
-              <h4 className="text-white font-semibold mb-1">Conteúdo Exclusivo</h4>
-              <p className="text-gray-400">Acesso a material que você não encontrará em nenhum outro lugar</p>
-            </div>
-          </li>
+          <p className="mb-8 leading-relaxed text-gray-400">
+            O site MasterPllays reúne diferentes espaços para você conhecer
+            meus conteúdos, acompanhar transmissões e ficar por dentro das
+            novidades.
+          </p>
 
-          <li className="flex items-start space-x-4">
-            <span className="text-red-500 text-2xl flex-shrink-0">✓</span>
-            <div>
-              <h4 className="text-white font-semibold mb-1">Comunidade Ativa</h4>
-              <p className="text-gray-400">Conecte-se com pessoas que compartilham os mesmos interesses</p>
-            </div>
-          </li>
+          <div className="grid gap-5 sm:grid-cols-2">
 
-          <li className="flex items-start space-x-4">
-            <span className="text-red-500 text-2xl flex-shrink-0">✓</span>
-            <div>
-              <h4 className="text-white font-semibold mb-1">Qualidade Premium</h4>
-              <p className="text-gray-400">Produção profissional em todos os nossos conteúdos</p>
-            </div>
-          </li>
+            <FeatureCard
+              icon="🎮"
+              title="Games"
+              description="Conteúdos relacionados ao universo dos jogos, incluindo partidas, experiências, descobertas e momentos especiais."
+            />
 
-          <li className="flex items-start space-x-4">
-            <span className="text-red-500 text-2xl flex-shrink-0">✓</span>
-            <div>
-              <h4 className="text-white font-semibold mb-1">Suporte Dedicado</h4>
-              <p className="text-gray-400">Estou sempre disponível para ajudar e responder suas dúvidas</p>
-            </div>
-          </li>
+            <FeatureCard
+              icon="📹"
+              title="Vídeos"
+              description="Uma biblioteca de vídeos com gameplays, vlogs e outros conteúdos para você assistir quando quiser."
+            />
 
-          <li className="flex items-start space-x-4">
-            <span className="text-red-500 text-2xl flex-shrink-0">✓</span>
-            <div>
-              <h4 className="text-white font-semibold mb-1">Atualizações Constantes</h4>
-              <p className="text-gray-400">Novo conteúdo adicionado regularmente à plataforma</p>
-            </div>
-          </li>
-        </ul>
-      </div>
+            <FeatureCard
+              icon="🔴"
+              title="Transmissões ao Vivo"
+              description="Acompanhe as lives, participe do chat e interaja durante as transmissões em tempo real."
+            />
 
-      {/* Call to Action */}
-      <div className="bg-gradient-to-r from-red-600 to-red-700 p-8 md:p-12 rounded-2xl text-center shadow-2xl">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-          Pronto para Começar?
-        </h2>
-        <p className="text-red-100 text-lg mb-8">
-          Escolha um plano e tenha acesso imediato a todo o conteúdo exclusivo
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link
-            to="/planos"
-            className="inline-block bg-white text-red-600 px-8 py-3 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors duration-200 transform hover:scale-105"
+            <FeatureCard
+              icon="👤"
+              title="Conta e Perfil"
+              description="Acesse sua conta na plataforma e utilize os recursos de perfil que estiverem disponíveis."
+            />
+
+          </div>
+        </section>
+
+        {/* Values */}
+        <section className="mb-16 rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-6 shadow-xl sm:p-10 md:p-12">
+          <SectionTitle>O Que Move o MasterPllays?</SectionTitle>
+
+          <div className="space-y-6">
+
+            <ValueItem
+              icon="❤️"
+              title="Paixão por Games"
+              description="O universo dos jogos é a principal inspiração para os conteúdos e experiências compartilhados."
+            />
+
+            <ValueItem
+              icon="🤝"
+              title="Comunidade"
+              description="Acredito que compartilhar experiências e interagir com outras pessoas torna tudo mais divertido."
+            />
+
+            <ValueItem
+              icon="✨"
+              title="Criatividade"
+              description="Busco novas ideias e maneiras de produzir conteúdos que representem minha identidade."
+            />
+
+            <ValueItem
+              icon="🚀"
+              title="Evolução"
+              description="O MasterPllays é um projeto em constante desenvolvimento, com espaço para novas ideias, melhorias e experiências."
+            />
+
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="rounded-2xl border border-red-500/30 bg-gradient-to-r from-red-700 via-red-600 to-red-800 p-7 text-center shadow-2xl shadow-red-950/30 sm:p-12">
+          <h2 className="mb-4 text-3xl font-extrabold sm:text-4xl">
+            Faça Parte Dessa Experiência!
+          </h2>
+
+          <p className="mx-auto mb-8 max-w-2xl leading-relaxed text-red-100">
+            Explore os conteúdos, acompanhe as transmissões e venha conhecer
+            tudo o que o universo MasterPllays tem a oferecer.
+          </p>
+
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+
+            <Link
+              to="/videos"
+              className="rounded-lg bg-white px-8 py-3 font-bold text-red-700 transition-all duration-200 hover:scale-105 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-700"
+            >
+              Explorar Vídeos
+            </Link>
+
+            <Link
+              to="/lives"
+              className="rounded-lg border border-white/40 bg-red-900/30 px-8 py-3 font-bold text-white transition-all duration-200 hover:scale-105 hover:bg-red-900/60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-700"
+            >
+              Assistir às Lives
+            </Link>
+
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section className="mt-16 border-t border-gray-800 pt-12 text-center">
+          <h2 className="mb-3 text-2xl font-bold text-white">
+            Entre em Contato
+          </h2>
+
+          <p className="mb-5 text-gray-400">
+            Tem alguma dúvida, sugestão ou gostaria de entrar em contato?
+            Será um prazer receber sua mensagem.
+          </p>
+
+          <a
+            href="mailto:suporte@masterpllays.com"
+            className="inline-flex items-center gap-2 font-semibold text-red-400 transition-colors hover:text-red-300 focus:outline-none focus:ring-2 focus:ring-red-500"
           >
-            Ver Planos
-          </Link>
-          <Link
-            to="/"
-            className="inline-block bg-red-800/50 text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-red-800 transition-colors duration-200 border border-white/20 transform hover:scale-105"
-          >
-            Voltar ao Início
-          </Link>
-        </div>
-      </div>
+            📧 suporte@masterpllays.com
+          </a>
+        </section>
 
-      {/* Contact Section */}
-      <div className="mt-16 pt-16 border-t border-gray-800 text-center">
-        <p className="text-gray-400 mb-4">
-          Tem perguntas ou sugestões? Adoraria saber sua opinião!
-        </p>
-        <p className="text-gray-300 text-sm">
-          <span className="text-red-400">📧 Email:</span> suporte@masterpllays.com
-        </p>
+        {/* Footer note */}
+        <footer className="mt-12 text-center">
+          <p className="text-sm text-gray-600">
+            MasterPllays — Games, conteúdo e comunidade.
+          </p>
+        </footer>
+
       </div>
-    </div>
+    </main>
   );
 };
+
+/* Reusable section title */
+interface SectionTitleProps {
+  children: React.ReactNode;
+}
+
+const SectionTitle: React.FC<SectionTitleProps> = ({ children }) => (
+  <h2 className="mb-7 flex items-center text-2xl font-extrabold sm:text-3xl">
+    <span
+      aria-hidden="true"
+      className="mr-4 h-8 w-1.5 flex-shrink-0 rounded-full bg-red-600"
+    />
+    {children}
+  </h2>
+);
+
+/* Platform feature card */
+interface FeatureCardProps {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+const FeatureCard: React.FC<FeatureCardProps> = ({
+  icon,
+  title,
+  description,
+}) => (
+  <article className="rounded-xl border border-red-900/30 bg-gradient-to-br from-red-950/30 to-black p-6 transition-all duration-300 hover:-translate-y-1 hover:border-red-600/60">
+    <div className="mb-4 text-3xl" aria-hidden="true">
+      {icon}
+    </div>
+
+    <h3 className="mb-3 text-xl font-bold text-red-400">
+      {title}
+    </h3>
+
+    <p className="leading-relaxed text-gray-300">
+      {description}
+    </p>
+  </article>
+);
+
+/* Platform values */
+interface ValueItemProps {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+const ValueItem: React.FC<ValueItemProps> = ({
+  icon,
+  title,
+  description,
+}) => (
+  <article className="flex items-start gap-4">
+    <div
+      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-red-900/40 bg-red-950/40 text-2xl"
+      aria-hidden="true"
+    >
+      {icon}
+    </div>
+
+    <div>
+      <h3 className="mb-1 font-bold text-white">
+        {title}
+      </h3>
+
+      <p className="leading-relaxed text-gray-400">
+        {description}
+      </p>
+    </div>
+  </article>
+);
 
 export default About;
