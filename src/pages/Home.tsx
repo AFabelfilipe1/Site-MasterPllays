@@ -1,4 +1,3 @@
-        <div className="pt-16">
           <VideoCarousel
             videos={VIDEOS.slice(0, 8)}
             title="🎬 Biblioteca de vídeos"
