@@ -1,252 +1,624 @@
-// src/pages/Videos.tsx
-import React, { useState, useMemo } from 'react';
+
+import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
 import VideoModal from '../components/VideoModal';
-import { Video, Playlist } from '../types';
-import { isRecentlyUploaded, VIDEOS, PLAYLISTS, VIDEO_CATEGORIES } from '../types/data';
 
-const Videos: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const requestedCategory = searchParams.get('category');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(
-    VIDEO_CATEGORIES.includes(requestedCategory || '') ? requestedCategory || 'Todos' : 'Todos'
-  );
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
-  const [expandedPlaylists, setExpandedPlaylists] = useState<Set<string>>(new Set());
+import type { Video, Playlist } from '../types';
 
-  const togglePlaylistExpanded = (playlistId: string) => {
-    const newSet = new Set(expandedPlaylists);
-    if (newSet.has(playlistId)) {
-      newSet.delete(playlistId);
-    } else {
-      newSet.add(playlistId);
-    }
-    setExpandedPlaylists(newSet);
-  };
+import {
+  isRecentlyUploaded,
+  VIDEOS,
+  PLAYLISTS,
+  VIDEO_CATEGORIES,
+} from '../types/data';
 
-  const filteredPlaylists = useMemo(() => {
-    let playlists = PLAYLISTS;
+// ======================================================
+// CONFIGURAÇÃO E INDEXAÇÃO DOS VÍDEOS
+// ======================================================
 
-    if (selectedCategory !== 'Todos') {
-      playlists = playlists.filter(p => p.category === selectedCategory);
-    }
+// Índice por ID para evitar buscas repetidas no array.
+const VIDEO_BY_ID = new Map<string, Video>(
+  VIDEOS.map((video) => [video.id, video])
+);
 
-    if (searchTerm) {
-      playlists = playlists.filter(p =>
-        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.description.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+// Recupera os vídeos associados a uma playlist.
+function getVideosByPlaylist(videoIds: string[]): Video[] {
+  return videoIds
+    .map((id) => VIDEO_BY_ID.get(id))
+    .filter((video): video is Video => video !== undefined);
+}
 
-    return playlists;
-  }, [searchTerm, selectedCategory]);
+// Normaliza textos para pesquisas sem diferença de acentos.
+function normalizeSearch(value: string): string {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
 
-  const getVideosByPlaylist = (videoIds: string[]): Video[] => {
-    return videoIds
-      .map(id => VIDEOS.find(v => v.id === id))
-      .filter((v): v is Video => v !== undefined);
-  };
+// ======================================================
+// COMPONENTE: CARTÃO DE VÍDEO
+// ======================================================
 
-  const VideoCard: React.FC<{ video: Video }> = ({ video }) => (
-    <div
-      className="group cursor-pointer bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-all duration-300"
-      onClick={() => setSelectedVideo(video)}
+interface VideoCardProps {
+  video: Video;
+  onSelect: (video: Video) => void;
+}
+
+function VideoCard({ video, onSelect }: VideoCardProps) {
+  const isNew = isRecentlyUploaded(video.uploadDate);
+
+  return (
+    <button
+      type="button"
+      onClick={() => onSelect(video)}
+      aria-label={`Assistir vídeo: ${video.title}`}
+      className="group w-full overflow-hidden rounded-lg bg-gray-800 text-left transition-all duration-300 hover:bg-gray-700 hover:shadow-lg hover:shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
     >
-      <div className="relative overflow-hidden aspect-video">
+      {/* Miniatura */}
+      <div className="relative aspect-video overflow-hidden bg-gray-900">
         <img
           src={video.thumbnail}
-          alt={video.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          alt={`Miniatura: ${video.title}`}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
 
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="w-12 h-12 bg-red-600/90 rounded-full flex items-center justify-center">
-            <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+        {/* Sobreposição */}
+        <div className="absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/10" />
+
+        {/* Botão visual de reprodução */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-600/95 text-white shadow-lg">
+            <svg
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="ml-1 h-6 w-6"
+              aria-hidden="true"
+            >
               <path d="M8 5v14l11-7z" />
             </svg>
           </div>
         </div>
 
-        <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
+        {/* Duração */}
+        <span className="absolute bottom-2 right-2 rounded bg-black/85 px-2 py-1 text-xs font-medium text-white">
           {video.duration}
-        </div>
+        </span>
 
-        {isRecentlyUploaded(video.uploadDate) && (
-          <div className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-semibold">
+        {/* Identificação de novidade */}
+        {isNew && (
+          <span className="absolute left-2 top-2 rounded bg-red-600 px-2 py-1 text-xs font-bold text-white">
             NOVO
-          </div>
+          </span>
         )}
       </div>
 
+      {/* Informações */}
       <div className="p-3">
-        <h4 className="text-white font-semibold text-sm group-hover:text-red-400 transition-colors duration-200 line-clamp-2 mb-1">
+        <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-white transition-colors group-hover:text-red-400">
           {video.title}
-        </h4>
-        <div className="flex items-center text-gray-400 text-xs space-x-2">
+        </h3>
+
+        <div className="flex items-center gap-2 text-xs text-gray-400">
           <span>{video.views} visualizações</span>
-          <span>•</span>
-          <span>{video.duration}</span>
         </div>
       </div>
-    </div>
+    </button>
   );
+}
 
-  const PlaylistCard: React.FC<{ playlist: Playlist }> = ({ playlist }) => {
-    const isExpanded = expandedPlaylists.has(playlist.id);
-    const videos = getVideosByPlaylist(playlist.videoIds);
+// ======================================================
+// COMPONENTE: CARTÃO DE PLAYLIST
+// ======================================================
 
-    return (
-      <div className="bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-all duration-300 mb-4">
-        <div
-          className="cursor-pointer p-4 flex items-start gap-4"
-          onClick={() => togglePlaylistExpanded(playlist.id)}
-        >
-          <img
-            src={playlist.thumbnail}
-            alt={playlist.name}
-            className="w-24 h-24 rounded object-cover flex-shrink-0"
-          />
+interface PlaylistCardProps {
+  playlist: Playlist;
+  videos: Video[];
+  isExpanded: boolean;
+  onToggle: (playlistId: string) => void;
+  onSelectVideo: (video: Video) => void;
+}
 
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-2">
-              <div className="flex-1">
-                <h3 className="text-white font-bold text-lg hover:text-red-400 transition-colors">
-                  {playlist.name}
-                </h3>
-              </div>
-              <svg
-                className={`w-6 h-6 text-red-500 flex-shrink-0 transition-transform duration-300 ${
-                  isExpanded ? 'rotate-180' : ''
-                }`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
-              </svg>
-            </div>
-
-            <p className="text-gray-300 text-sm mt-2 line-clamp-2">{playlist.description}</p>
-
-            <div className="flex items-center text-gray-400 text-xs mt-3 space-x-3">
-              <span>{playlist.videoCount} vídeo{playlist.videoCount !== 1 ? 's' : ''}</span>
-              {playlist.creator && (
-                <>
-                  <span>•</span>
-                  <span>{playlist.creator}</span>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {isExpanded && videos.length > 0 && (
-          <div className="border-t border-gray-700 bg-gray-900/50 p-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {videos.map((video) => (
-                <VideoCard key={video.id} video={video} />
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  const categoriesWithPlaylists = useMemo(() => {
-    const categories = selectedCategory === 'Todos' 
-      ? VIDEO_CATEGORIES.filter(cat => cat !== 'Todos')
-      : [selectedCategory];
-
-    return categories.map(cat => ({
-      category: cat,
-      playlists: filteredPlaylists.filter(p => p.category === cat)
-    })).filter(item => item.playlists.length > 0);
-  }, [filteredPlaylists, selectedCategory]);
+function PlaylistCard({
+  playlist,
+  videos,
+  isExpanded,
+  onToggle,
+  onSelectVideo,
+}: PlaylistCardProps) {
+  const contentId = `playlist-content-${playlist.id}`;
 
   return (
-    <div className="min-h-screen bg-black pt-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Biblioteca de Vídeos</h1>
-          <p className="text-gray-400">Explore nossas coleções organizadas em playlists temáticas</p>
-        </div>
+    <article className="mb-4 overflow-hidden rounded-xl bg-gray-800 transition-colors hover:bg-gray-750">
 
-        {/* Filtros */}
-        <div className="bg-gray-900 rounded-lg p-6 mb-8">
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="flex-1">
+      {/* Cabeçalho expansível */}
+      <button
+        type="button"
+        onClick={() => onToggle(playlist.id)}
+        aria-expanded={isExpanded}
+        aria-controls={contentId}
+        className="flex w-full items-start gap-4 p-4 text-left transition-colors hover:bg-gray-700/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-500"
+      >
+        {/* Miniatura da playlist */}
+        <img
+          src={playlist.thumbnail}
+          alt={`Miniatura da playlist ${playlist.name}`}
+          loading="lazy"
+          decoding="async"
+          className="h-20 w-24 shrink-0 rounded-lg bg-gray-900 object-cover sm:h-24 sm:w-32"
+        />
+
+        {/* Informações */}
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="text-base font-bold text-white transition-colors hover:text-red-400 sm:text-lg">
+              {playlist.name}
+            </h3>
+
+            {/* Indicador de expansão */}
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              className={`h-6 w-6 shrink-0 text-red-500 transition-transform duration-300 ${
+                isExpanded ? 'rotate-180' : ''
+              }`}
+              aria-hidden="true"
+            >
+              <path
+                d="m6 9 6 6 6-6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+              />
+            </svg>
+          </div>
+
+          <p className="mt-2 line-clamp-2 text-sm text-gray-300">
+            {playlist.description}
+          </p>
+
+          <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-gray-400">
+            <span>
+              {videos.length} vídeo{videos.length !== 1 ? 's' : ''}
+            </span>
+
+            {playlist.creator && (
+              <>
+                <span aria-hidden="true">•</span>
+                <span>{playlist.creator}</span>
+              </>
+            )}
+          </div>
+        </div>
+      </button>
+
+      {/* Conteúdo expandido */}
+      {isExpanded && (
+        <div
+          id={contentId}
+          className="border-t border-gray-700 bg-gray-900/50 p-4"
+        >
+          {videos.length > 0 ? (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {videos.map((video) => (
+                <VideoCard
+                  key={video.id}
+                  video={video}
+                  onSelect={onSelectVideo}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="py-8 text-center">
+              <p className="text-sm text-gray-400">
+                Nenhum vídeo disponível nesta playlist.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+    </article>
+  );
+}
+
+// ======================================================
+// COMPONENTE PRINCIPAL: VIDEOS
+// ======================================================
+
+const Videos: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Pesquisa
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Vídeo selecionado
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+
+  // Playlists expandidas
+  const [expandedPlaylists, setExpandedPlaylists] = useState<Set<string>>(
+    () => new Set()
+  );
+
+  // ====================================================
+  // CATEGORIA SINCRONIZADA COM A URL
+  // ====================================================
+
+  const requestedCategory = searchParams.get('category');
+
+  const selectedCategory =
+    requestedCategory &&
+    VIDEO_CATEGORIES.includes(
+      requestedCategory as (typeof VIDEO_CATEGORIES)[number]
+    )
+      ? requestedCategory
+      : 'Todos';
+
+  const handleCategoryChange = (category: string) => {
+    setSearchParams((previousParams) => {
+      const nextParams = new URLSearchParams(previousParams);
+
+      if (category === 'Todos') {
+        nextParams.delete('category');
+      } else {
+        nextParams.set('category', category);
+      }
+
+      return nextParams;
+    });
+  };
+
+  // ====================================================
+  // EXPANSÃO DE PLAYLISTS
+  // ====================================================
+
+  const togglePlaylistExpanded = (playlistId: string) => {
+    setExpandedPlaylists((previous) => {
+      const updated = new Set(previous);
+
+      if (updated.has(playlistId)) {
+        updated.delete(playlistId);
+      } else {
+        updated.add(playlistId);
+      }
+
+      return updated;
+    });
+  };
+
+  // ====================================================
+  // PESQUISA E FILTROS
+  // ====================================================
+
+  const filteredPlaylists = useMemo(() => {
+    const normalizedTerm = normalizeSearch(searchTerm);
+
+    return PLAYLISTS.flatMap((playlist) => {
+      // Filtro de categoria
+      if (
+        selectedCategory !== 'Todos' &&
+        playlist.category !== selectedCategory
+      ) {
+        return [];
+      }
+
+      // Vídeos pertencentes à playlist
+      const playlistVideos = getVideosByPlaylist(playlist.videoIds);
+
+      // Pesquisa nas informações da playlist
+      const playlistMatches =
+        !normalizedTerm ||
+        [
+          playlist.name,
+          playlist.description,
+          playlist.category,
+          playlist.creator ?? '',
+        ].some((value) =>
+          normalizeSearch(value).includes(normalizedTerm)
+        );
+
+      // Pesquisa nos títulos dos vídeos
+      const matchingVideos = !normalizedTerm
+        ? playlistVideos
+        : playlistVideos.filter((video) =>
+            normalizeSearch(video.title).includes(normalizedTerm)
+          );
+
+      // Elimina playlists sem correspondência
+      if (
+        normalizedTerm &&
+        !playlistMatches &&
+        matchingVideos.length === 0
+      ) {
+        return [];
+      }
+
+      // Se a playlist corresponde, apresenta todos os vídeos.
+      // Se apenas um vídeo corresponde, apresenta somente ele.
+      return [
+        {
+          playlist,
+          videos: playlistMatches
+            ? playlistVideos
+            : matchingVideos,
+        },
+      ];
+    });
+  }, [searchTerm, selectedCategory]);
+
+  // ====================================================
+  // ORGANIZAÇÃO POR CATEGORIAS
+  // ====================================================
+
+  const categoriesWithPlaylists = useMemo(() => {
+    const categories =
+      selectedCategory === 'Todos'
+        ? VIDEO_CATEGORIES.filter((category) => category !== 'Todos')
+        : [selectedCategory];
+
+    return categories
+      .map((category) => ({
+        category,
+        playlists: filteredPlaylists.filter(
+          (item) => item.playlist.category === category
+        ),
+      }))
+      .filter((item) => item.playlists.length > 0);
+  }, [filteredPlaylists, selectedCategory]);
+
+  // ====================================================
+  // RESULTADOS DA BIBLIOTECA
+  // ====================================================
+
+  const totalPlaylists = filteredPlaylists.length;
+
+  const totalVideos = filteredPlaylists.reduce(
+    (total, item) => total + item.videos.length,
+    0
+  );
+
+  // ====================================================
+  // INTERFACE
+  // ====================================================
+
+  return (
+    <div className="min-h-screen bg-black pb-16 pt-20">
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+
+        {/* ============================================
+            CABEÇALHO
+        ============================================ */}
+
+        <header className="mb-8">
+          <h1 className="mb-2 text-3xl font-bold text-white sm:text-4xl">
+            Biblioteca de Vídeos
+          </h1>
+
+          <p className="max-w-2xl text-gray-400">
+            Explore nossas coleções organizadas em playlists temáticas
+            e encontre seus conteúdos favoritos.
+          </p>
+        </header>
+
+        {/* ============================================
+            PESQUISA E FILTROS
+        ============================================ */}
+
+        <section
+          aria-label="Pesquisa e filtros da biblioteca"
+          className="mb-8 rounded-xl border border-gray-800 bg-gray-900 p-4 sm:p-6"
+        >
+          <div className="flex flex-col gap-4 lg:flex-row">
+
+            {/* Pesquisa */}
+            <div className="min-w-0 flex-1">
+              <label
+                htmlFor="video-search"
+                className="mb-2 block text-sm font-medium text-gray-300"
+              >
+                Pesquisar vídeos e playlists
+              </label>
+
               <div className="relative">
-                <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="11" r="7" strokeWidth={2} />
+                  <path
+                    d="m16 16 4 4"
+                    strokeLinecap="round"
+                    strokeWidth={2}
+                  />
                 </svg>
+
                 <input
-                  type="text"
-                  placeholder="Buscar playlists..."
+                  id="video-search"
+                  type="search"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  placeholder="Digite o nome de um vídeo ou playlist..."
+                  autoComplete="off"
+                  className="w-full rounded-lg border border-gray-700 bg-gray-800 py-3 pl-10 pr-4 text-white placeholder-gray-400 transition focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/30"
                 />
               </div>
             </div>
 
-            <div className="w-full lg:w-48">
+            {/* Categoria */}
+            <div className="w-full lg:w-64">
+              <label
+                htmlFor="video-category"
+                className="mb-2 block text-sm font-medium text-gray-300"
+              >
+                Filtrar por categoria
+              </label>
+
               <select
+                id="video-category"
                 value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                onChange={(event) =>
+                  handleCategoryChange(event.target.value)
+                }
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white transition focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/30"
               >
                 {VIDEO_CATEGORIES.map((category) => (
-                  <option key={category} value={category} className="bg-gray-800">
+                  <option key={category} value={category}>
                     {category}
                   </option>
                 ))}
               </select>
             </div>
           </div>
-        </div>
 
-        {/* Conteúdo */}
+          {/* Informações dos resultados */}
+          <div
+            className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-gray-800 pt-4"
+            aria-live="polite"
+          >
+            <div className="flex flex-wrap gap-4 text-sm text-gray-400">
+              <span>
+                <strong className="text-white">{totalPlaylists}</strong>
+                {' '}playlists
+              </span>
+
+              <span>
+                <strong className="text-white">{totalVideos}</strong>
+                {' '}vídeos encontrados
+              </span>
+            </div>
+
+            {(searchTerm || selectedCategory !== 'Todos') && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchTerm('');
+                  handleCategoryChange('Todos');
+                }}
+                className="rounded-lg px-3 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500/10 hover:text-red-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+              >
+                Limpar filtros
+              </button>
+            )}
+          </div>
+        </section>
+
+        {/* ============================================
+            CONTEÚDO DA BIBLIOTECA
+        ============================================ */}
+
         {categoriesWithPlaylists.length > 0 ? (
-          <div className="space-y-8">
-            {categoriesWithPlaylists.map(({ category, playlists }) => (
-              <div key={category}>
-                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                  <div className="w-1 h-8 bg-red-600 rounded" />
-                  {category}
-                </h2>
-                <div className="space-y-4">
-                  {playlists.map((playlist) => (
-                    <PlaylistCard key={playlist.id} playlist={playlist} />
-                  ))}
-                </div>
-              </div>
-            ))}
+          <div className="space-y-10">
+
+            {categoriesWithPlaylists.map(
+              ({ category, playlists }) => (
+                <section key={category} aria-label={category}>
+
+                  {/* Título da categoria */}
+                  <div className="mb-5 flex items-center gap-3">
+                    <div
+                      className="h-8 w-1 rounded-full bg-red-600"
+                      aria-hidden="true"
+                    />
+
+                    <h2 className="text-xl font-bold text-white sm:text-2xl">
+                      {category}
+                    </h2>
+
+                    <span className="rounded-full bg-gray-800 px-3 py-1 text-xs font-medium text-gray-400">
+                      {playlists.length}
+                    </span>
+                  </div>
+
+                  {/* Playlists */}
+                  <div className="space-y-4">
+                    {playlists.map(({ playlist, videos }) => (
+                      <PlaylistCard
+                        key={playlist.id}
+                        playlist={playlist}
+                        videos={videos}
+                        isExpanded={expandedPlaylists.has(playlist.id)}
+                        onToggle={togglePlaylistExpanded}
+                        onSelectVideo={setSelectedVideo}
+                      />
+                    ))}
+                  </div>
+
+                </section>
+              )
+            )}
+
           </div>
         ) : (
-          <div className="text-center py-16">
-            <svg className="w-16 h-16 text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+
+          /* ==========================================
+             ESTADO VAZIO
+          ========================================== */
+
+          <section className="rounded-xl border border-gray-800 bg-gray-900/50 px-4 py-16 text-center">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              className="mx-auto mb-5 h-16 w-16 text-gray-600"
+              aria-hidden="true"
+            >
+              <rect
+                x="3"
+                y="5"
+                width="18"
+                height="14"
+                rx="2"
+                strokeWidth={1.5}
+              />
+
+              <path
+                d="m10 9 5 3-5 3z"
+                strokeWidth={1.5}
+                strokeLinejoin="round"
+              />
             </svg>
-            <h3 className="text-xl font-semibold text-white mb-2">Nenhuma playlist encontrada</h3>
-            <p className="text-gray-400">Tente ajustar os filtros de busca ou categoria.</p>
-          </div>
+
+            <h2 className="mb-2 text-xl font-bold text-white">
+              Nenhuma playlist encontrada
+            </h2>
+
+            <p className="mx-auto max-w-md text-sm text-gray-400">
+              Não encontramos vídeos ou playlists correspondentes
+              à sua pesquisa. Tente modificar os filtros.
+            </p>
+
+            <button
+              type="button"
+              onClick={() => {
+                setSearchTerm('');
+                handleCategoryChange('Todos');
+              }}
+              className="mt-6 rounded-lg bg-red-600 px-6 py-3 font-semibold text-white transition hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
+            >
+              Limpar filtros
+            </button>
+          </section>
         )}
-      </div>
+
+      </main>
+
+      {/* ==============================================
+          MODAL DE REPRODUÇÃO
+      ============================================== */}
 
       <VideoModal
         video={selectedVideo}
         isOpen={!!selectedVideo}
         onClose={() => setSelectedVideo(null)}
       />
+
     </div>
   );
 };
