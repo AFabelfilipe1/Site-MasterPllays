@@ -335,8 +335,14 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        <a
-          href="#conteudos"
+        <button
+          type="button"
+          onClick={() =>
+            document.getElementById('conteudos')?.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            })
+          }
           className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-gray-400 transition-colors hover:text-white"
           aria-label="Ir para os conteúdos"
         >
@@ -344,7 +350,7 @@ const Home: React.FC = () => {
           <svg className="h-6 w-6 animate-bounce text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
-        </a>
+        </button>
       </section>
 
       {/* Conteúdos */}
