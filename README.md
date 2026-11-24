@@ -1,22 +1,111 @@
-# MasterPllays
+# 🎮 MasterPllays
 
-Site de vídeos, transmissões, planos e perfil, desenvolvido com React, TypeScript, Vite, Tailwind CSS e Firebase Authentication.
+**MasterPllays** é uma plataforma digital dedicada ao universo dos games, criada para reunir conteúdos, vídeos, gameplays, transmissões ao vivo e experiências da comunidade em um único lugar.
 
-## Executar localmente
+O site tem como objetivo apresentar os conteúdos do criador, facilitar o acesso às suas produções e oferecer um espaço organizado para acompanhar suas atividades no mundo dos jogos.
 
-1. Instale o Node.js 20 ou superior.
-2. Execute `npm ci`.
-3. Copie `.env.local.example` para `.env.local` e preencha as credenciais do Firebase.
-4. Execute `npm run dev`.
+🌐 **Acesse o site:** https://afabelfilipe1.github.io/Site-MasterPllays/#/
 
-`npm run lint` verifica o código e `npm run build` executa o TypeScript e compila o site.
+---
 
-## Publicar no GitHub Pages
+## 🎯 Sobre o projeto
 
-O branch `main` contém o código-fonte. Ao enviar alterações para `main`, o GitHub Actions instala as dependências, executa o lint e o build e publica os arquivos compilados na raiz de `gh-pages`. Como a configuração atual do GitHub Pages usa `main/docs`, o workflow também mantém essa pasta de publicação sincronizada; ambos os destinos recebem o mesmo build.
+O MasterPllays nasceu com a proposta de construir um espaço próprio para centralizar conteúdos relacionados a games, entretenimento e criação de conteúdo digital.
 
-Para habilitar login e cadastro na versão publicada, adicione os valores Firebase de `.env.local.example` como secrets do repositório. Sem essa configuração, o site continua disponível, mas a autenticação não pode ser usada.
+A plataforma busca oferecer uma experiência simples, moderna e intuitiva, permitindo que os visitantes conheçam o trabalho do criador, acompanhem seus vídeos e encontrem diferentes conteúdos em um único ambiente.
 
-## Pagamentos
+---
 
-Este projeto ainda não está integrado a um gateway de pagamento. O checkout explica essa limitação e não coleta dados financeiros nem simula cobranças.
+## 🚀 Tecnologias utilizadas
+
+O projeto utiliza as seguintes tecnologias:
+
+- **React** — construção da interface.
+- **TypeScript** — tipagem estática e segurança do código.
+- **Vite** — ambiente de desenvolvimento e compilação.
+- **Tailwind CSS** — estilização e responsividade.
+- **Firebase Authentication** — autenticação de usuários.
+- **GitHub Actions** — automação de validação e publicação.
+- **GitHub Pages** — hospedagem do site.
+
+Essas tecnologias compõem a estrutura responsável pela interface, organização, estilização, autenticação e publicação da plataforma.
+
+---
+
+## 🎬 Conteúdos e funcionalidades
+
+O site reúne diferentes áreas destinadas à apresentação e organização dos conteúdos.
+
+### 📺 Vídeos e Gameplays
+
+Espaço dedicado à publicação e organização de vídeos de jogos, permitindo que os visitantes acompanhem partidas, séries, aventuras e outros conteúdos relacionados ao universo gamer.
+
+### 🎥 Vlogs
+
+Área destinada a vídeos de experiências, momentos especiais, atividades e conteúdos que vão além dos jogos.
+
+### 🔴 Transmissões ao vivo
+
+Espaço voltado às lives e atividades de streaming, permitindo acompanhar as transmissões e acessar conteúdos relacionados às plataformas de streaming.
+
+### ✂️ Clipes
+
+Área dedicada a momentos marcantes das transmissões, reunindo clipes, jogadas, momentos engraçados e destaques das lives.
+
+### 👤 Perfil
+
+Área destinada à apresentação do perfil do usuário e aos recursos relacionados à conta na plataforma.
+
+### ⭐ Planos
+
+Espaço destinado à apresentação de planos e possíveis benefícios oferecidos pela plataforma.
+
+### 🔐 Autenticação
+
+O site conta com integração ao Firebase Authentication, permitindo recursos de login e cadastro de usuários.
+
+---
+
+## 💳 Pagamentos
+
+O projeto ainda não possui integração com um gateway de pagamento.
+
+Atualmente:
+
+- O checkout informa que a integração de pagamentos ainda não está disponível.
+- Nenhum dado financeiro é coletado.
+- Nenhuma cobrança é simulada ou processada.
+
+Uma futura integração poderá permitir pagamentos reais por meio de um provedor apropriado.
+
+---
+
+## 🎨 Identidade MasterPllays
+
+O MasterPllays representa uma identidade voltada à criação de conteúdo digital, games, entretenimento e interação com a comunidade.
+
+A proposta é construir uma presença digital própria, reunindo diferentes formatos de conteúdo em uma plataforma centralizada.
+
+---
+
+## 🚧 Desenvolvimento
+
+O MasterPllays está em desenvolvimento contínuo.
+
+Novas melhorias, funcionalidades e conteúdos poderão ser adicionados ao longo do tempo, buscando ampliar a experiência dos visitantes e fortalecer a presença digital do projeto.
+
+---
+
+## 👨‍💻 Criador
+
+**MasterPllays**
+
+Projeto independente de criação de conteúdo e desenvolvimento de uma plataforma digital dedicada aos games, vídeos, transmissões e entretenimento.
+
+🌐 **Site oficial:** https://afabelfilipe1.github.io/Site-MasterPllays/#/
+
+💻 **Repositório:** https://github.com/afabelfilipe1/Site-MasterPllays
+
+---
+
+© MasterPllays — Todos os direitos reservados.
