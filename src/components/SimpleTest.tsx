@@ -41,10 +41,10 @@ const SimpleTest: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 min-h-screen bg-black">
+    <div className="mx-auto min-h-screen max-w-4xl bg-[#09090b] p-6 pt-24 text-white">
       <h1 className="text-3xl font-bold text-center mb-8 text-white">🔧 Teste Firebase Authentication</h1>
       
-      <div className="bg-red-900/20 border border-red-700 p-6 rounded-lg mb-6">
+      <div className="mb-6 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6">
         <h2 className="text-xl font-semibold mb-4 text-white">Informações do Projeto</h2>
         <ul className="space-y-2 text-gray-300">
           <li><strong>Projeto Firebase:</strong> masterpllays</li>
@@ -58,7 +58,7 @@ const SimpleTest: React.FC = () => {
         <div className="text-center">
           <button
             onClick={handleGoogleLogin}
-            className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-3 mx-auto"
+            className="mx-auto flex items-center justify-center gap-3 rounded-full bg-red-600 px-6 py-3 font-bold text-white transition hover:bg-red-500"
           >
             <img 
               src="https://www.google.com/favicon.ico" 
@@ -69,7 +69,7 @@ const SimpleTest: React.FC = () => {
           </button>
         </div>
       ) : (
-        <div className="bg-green-900/20 border border-green-700 p-6 rounded-lg text-center">
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.06] p-6 text-center">
           <h2 className="text-2xl font-bold mb-4 text-white">✅ Logado com Sucesso!</h2>
           <div className="flex flex-col items-center mb-6">
             {user.photoURL && (
@@ -85,7 +85,7 @@ const SimpleTest: React.FC = () => {
           </div>
           <button
             onClick={handleLogout}
-            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg"
+            className="rounded-full bg-red-600 px-6 py-2 font-bold text-white transition hover:bg-red-500"
           >
             Sair
           </button>
@@ -113,7 +113,7 @@ const SimpleTest: React.FC = () => {
         </div>
       )}
 
-      <div className="mt-8 p-6 bg-gray-900 border border-gray-800 rounded-lg">
+      <div className="mt-8 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6">
         <h3 className="font-bold text-lg mb-3 text-white">Próximos Passos:</h3>
         <ul className="space-y-2 text-gray-400">
           <li>✅ Acesse: <a href="https://console.firebase.google.com/" target="_blank" rel="noreferrer" className="text-red-500 hover:text-red-400 underline">Firebase Console</a></li>

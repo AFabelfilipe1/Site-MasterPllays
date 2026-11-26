@@ -32,7 +32,7 @@ const About: React.FC = () => {
         </section>
 
         {/* About Me */}
-        <section className="mb-16 rounded-3xl border border-white/[0.08] bg-white/[0.025] p-6 shadow-xl shadow-black/20 backdrop-blur sm:p-10 md:p-12">
+        <section className="mb-16 rounded-3xl border border-white/[0.08] bg-white/[0.03] p-6 shadow-xl shadow-black/10 backdrop-blur sm:p-10 md:p-12">
           <SectionTitle>Sobre Mim</SectionTitle>
 
           <div className="space-y-5 leading-relaxed text-gray-300">
@@ -60,7 +60,7 @@ const About: React.FC = () => {
               que acompanham meu trabalho.
             </p>
 
-            <div className="rounded-2xl border border-red-500/15 border-l-4 border-l-red-500 bg-red-500/[0.04] p-5">
+            <div className="rounded-2xl border border-red-500/15 border-l-4 border-l-red-500 bg-red-500/[0.05] p-5">
               <h3 className="mb-2 font-bold text-white">
                 🎯 Minha missão
               </h3>
@@ -76,7 +76,7 @@ const About: React.FC = () => {
         </section>
 
         {/* About Platform */}
-        <section className="mb-16 rounded-3xl border border-white/[0.08] bg-white/[0.025] p-6 shadow-xl shadow-black/20 backdrop-blur sm:p-10 md:p-12">
+        <section className="mb-16 rounded-3xl border border-white/[0.08] bg-white/[0.025] p-6 shadow-xl shadow-black/10 backdrop-blur sm:p-10 md:p-12">
           <SectionTitle>Sobre a Plataforma</SectionTitle>
 
           <p className="mb-8 leading-relaxed text-gray-400">
@@ -115,7 +115,7 @@ const About: React.FC = () => {
         </section>
 
         {/* Values */}
-        <section className="mb-16 rounded-3xl border border-white/[0.08] bg-white/[0.025] p-6 shadow-xl shadow-black/20 backdrop-blur sm:p-10 md:p-12">
+        <section className="mb-16 rounded-3xl border border-white/[0.08] bg-white/[0.03] p-6 shadow-xl shadow-black/10 backdrop-blur sm:p-10 md:p-12">
           <SectionTitle>O Que Move o MasterPllays?</SectionTitle>
 
           <div className="space-y-6">
@@ -148,7 +148,7 @@ const About: React.FC = () => {
         </section>
 
         {/* CTA */}
-        <section className="rounded-3xl border border-red-400/20 bg-gradient-to-br from-red-700 via-red-600 to-rose-800 p-7 text-center shadow-2xl shadow-red-950/30 sm:p-12">
+        <section className="rounded-3xl border border-red-400/20 bg-gradient-to-br from-red-700 via-red-600 to-rose-700 p-7 text-center shadow-2xl shadow-red-950/30 sm:p-12">
           <h2 className="mb-4 text-3xl font-extrabold sm:text-4xl">
             Faça Parte Dessa Experiência!
           </h2>
@@ -162,14 +162,14 @@ const About: React.FC = () => {
 
             <Link
               to="/videos"
-              className="rounded-full bg-white px-8 py-3 font-bold text-red-700 transition-all duration-200 hover:-translate-y-0.5 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-700"
+              className="rounded-lg bg-white px-8 py-3 font-bold text-red-700 transition-all duration-200 hover:scale-105 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-700"
             >
               Explorar Vídeos
             </Link>
 
             <Link
               to="/lives"
-              className="rounded-full border border-white/30 bg-red-900/30 px-8 py-3 font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-900/60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-700"
+              className="rounded-lg border border-white/40 bg-red-900/30 px-8 py-3 font-bold text-white transition-all duration-200 hover:scale-105 hover:bg-red-900/60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-700"
             >
               Assistir às Lives
             </Link>
@@ -264,7 +264,7 @@ const ValueItem: React.FC<ValueItemProps> = ({
 }) => (
   <article className="flex items-start gap-4">
     <div
-      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-red-500/15 bg-red-500/[0.08] text-2xl"
+      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-red-500/15 bg-red-500/[0.06] text-2xl"
       aria-hidden="true"
     >
       {icon}

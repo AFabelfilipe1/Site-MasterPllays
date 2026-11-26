@@ -10,7 +10,7 @@ export default function Pagamento() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#09090b] text-white" role="status">
-        <span className="h-10 w-10 animate-spin rounded-full border-2 border-white/10 border-t-red-500" aria-label="Carregando" />
+        Carregando...
       </div>
     );
   }
@@ -27,17 +27,19 @@ export default function Pagamento() {
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#09090b] px-4 py-24 text-white">
-      <section className="w-full max-w-xl rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center shadow-2xl shadow-black/30 sm:p-10">
-        <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-red-400">Resumo da assinatura</p>
+      <section className="w-full max-w-xl rounded-3xl border border-white/[0.08] bg-white/[0.03] p-8 text-center shadow-2xl shadow-black/20 sm:p-10">
+        <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-red-400">
+          Finalização do plano
+        </p>
         <h1 className="text-3xl font-black tracking-tight">Plano {plan.nome}</h1>
-        <p className="mt-4 text-2xl font-bold text-red-400">{price}</p>
-        <p className="mt-6 rounded-2xl border border-amber-500/20 bg-amber-500/[0.06] p-4 text-left leading-relaxed text-gray-300">
+        <p className="mt-3 text-2xl font-bold text-red-400">{price}</p>
+        <p className="mt-6 rounded-2xl border border-amber-400/15 bg-amber-400/[0.06] p-4 text-left leading-relaxed text-gray-300">
           O pagamento ainda não está disponível. Nenhuma cobrança foi realizada.
           Não informe dados de cartão ou documentos neste site.
         </p>
         <Link
           to="/planos"
-          className="mt-8 inline-flex rounded-full bg-red-600 px-6 py-3 font-semibold text-white shadow-lg shadow-red-950/30 transition hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400"
+          className="mt-8 inline-flex rounded-full bg-red-600 px-6 py-3 font-semibold text-white shadow-lg shadow-red-950/30 transition-colors hover:bg-red-500"
         >
           Voltar para os planos
         </Link>

@@ -86,18 +86,18 @@ const VideoModal: React.FC<VideoModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-5xl overflow-y-auto rounded-xl bg-gray-900 p-4 text-white shadow-2xl md:p-6"
+        className="relative w-full max-w-5xl overflow-y-auto rounded-3xl border border-white/10 bg-[#111114] p-4 text-white shadow-2xl shadow-black/50 md:p-6"
         onClick={(event) => event.stopPropagation()}
       >
         {/* Botão fechar */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-2xl text-white transition hover:bg-red-600"
+          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/60 text-2xl text-white transition hover:border-red-500/40 hover:bg-red-600"
           aria-label="Fechar vídeo"
         >
           &times;
@@ -117,7 +117,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
         </div>
 
         {/* Player */}
-        <div className="overflow-hidden rounded-lg bg-black">
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-black">
           {youtubeId ? (
             <VideoPlayer
               key={currentVideo.id}
@@ -146,17 +146,17 @@ const VideoModal: React.FC<VideoModalProps> = ({
             </p>
           )}
 
-          <div className="flex flex-wrap gap-3 text-sm text-gray-400">
+          <div className="flex flex-wrap gap-2 text-xs text-gray-300 sm:text-sm">
             {currentVideo.category && (
-              <span>Categoria: {currentVideo.category}</span>
+              <span className="rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1.5 text-red-200">Categoria: {currentVideo.category}</span>
             )}
 
             {currentVideo.duration && (
-              <span>Duração: {currentVideo.duration}</span>
+              <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">Duração: {currentVideo.duration}</span>
             )}
 
             {currentVideo.views && (
-              <span>Visualizações: {currentVideo.views}</span>
+              <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">Visualizações: {currentVideo.views}</span>
             )}
           </div>
         </div>
@@ -165,7 +165,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
           <Link
             to={`/video/${encodeURIComponent(currentVideo.id)}`}
             onClick={onClose}
-            className="text-sm font-semibold text-purple-400 transition hover:text-purple-300"
+            className="text-sm font-semibold text-red-300 transition hover:text-white"
           >
             Abrir página deste vídeo →
           </Link>
@@ -176,7 +176,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
 
         {/* Controles da playlist */}
         {hasPlaylist && (
-          <div className="mt-6 border-t border-gray-700 pt-5">
+          <div className="mt-6 border-t border-white/10 pt-5">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <h3 className="text-lg font-semibold">
                 Reprodução da playlist
@@ -187,7 +187,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
                   type="checkbox"
                   checked={autoPlay}
                   onChange={(event) => setAutoPlay(event.target.checked)}
-                  className="h-4 w-4 accent-purple-500"
+                  className="h-4 w-4 accent-red-500"
                 />
                 Reproduzir próximo automaticamente
               </label>
@@ -198,7 +198,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
                 type="button"
                 onClick={handlePreviousVideo}
                 disabled={!hasPrevious}
-                className="rounded-lg bg-gray-700 px-5 py-2 font-medium transition hover:bg-gray-600 disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-2.5 font-medium transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Anterior
               </button>
@@ -207,7 +207,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
                 type="button"
                 onClick={handleNextVideo}
                 disabled={!hasNext}
-                className="rounded-lg bg-purple-600 px-5 py-2 font-medium transition hover:bg-purple-500 disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-full bg-red-600 px-5 py-2.5 font-medium transition hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Próximo
               </button>
@@ -216,15 +216,15 @@ const VideoModal: React.FC<VideoModalProps> = ({
             {/* Prévia do próximo vídeo */}
             <div className="mt-5">
               {nextVideo ? (
-                <div className="flex items-center gap-4 rounded-lg bg-gray-800 p-3">
+                <div className="flex items-center gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-3">
                   <img
                     src={nextVideo.thumbnail}
                     alt={`Miniatura de ${nextVideo.title}`}
-                    className="h-20 w-32 rounded-md object-cover"
+                    className="h-20 w-32 rounded-xl object-cover"
                   />
 
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-purple-400">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-red-300">
                       Próximo vídeo
                     </p>
 
@@ -240,7 +240,7 @@ const VideoModal: React.FC<VideoModalProps> = ({
                   </div>
                 </div>
               ) : (
-                <p className="rounded-lg bg-gray-800 p-4 text-sm text-gray-400">
+                <p className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 text-sm text-gray-400">
                   Você chegou ao último vídeo desta playlist.
                 </p>
               )}

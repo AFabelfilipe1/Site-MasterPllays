@@ -14,8 +14,8 @@ const Auth: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex min-h-[calc(100vh-7rem)] items-center justify-center bg-[#09090b]">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/10 border-t-red-500" />
+      <div className="flex min-h-screen items-center justify-center bg-[#09090b]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/10 border-t-red-500" role="status" aria-label="Carregando" />
       </div>
     );
   }
@@ -56,21 +56,21 @@ const Auth: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-center bg-[#09090b] px-4 py-12 pt-28 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen flex-col justify-center bg-[#09090b] px-4 pb-16 pt-28 text-white sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-rose-700 text-xl font-black text-white shadow-lg shadow-red-950/40">
+        <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-rose-700 text-xl font-black text-white shadow-lg shadow-red-950/30">
           M
         </div>
-        <h2 className="text-center text-3xl font-black tracking-tight text-white">
-          {isLogin ? 'Bem-vindo de volta' : 'Crie sua conta'}
+        <h2 className="mt-6 text-center text-3xl font-extrabold tracking-tight text-white">
+          MasterPllays
         </h2>
         <p className="mt-2 text-center text-sm text-gray-400">
           {isLogin ? 'Entre na sua conta' : 'Crie sua conta'}
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="rounded-3xl border border-white/10 bg-white/[0.03] px-4 py-8 shadow-2xl shadow-black/30 sm:px-10">
+      <div className="mt-8 w-full sm:mx-auto sm:max-w-md">
+        <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] px-4 py-8 shadow-2xl shadow-black/20 backdrop-blur sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300">
@@ -121,7 +121,7 @@ const Auth: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative flex w-full items-center justify-center rounded-full bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-red-950/30 transition hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-[#09090b] disabled:cursor-not-allowed disabled:opacity-50"
+                className="group relative flex w-full justify-center rounded-full bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-red-950/30 transition hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-[#09090b] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
@@ -137,7 +137,7 @@ const Auth: React.FC = () => {
                   <div className="w-full border-t border-white/10" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-[#111114] px-3 text-gray-500">ou</span>
+                  <span className="bg-[#111114] px-3 text-gray-500">Ou</span>
                 </div>
               </div>
 
@@ -145,7 +145,7 @@ const Auth: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleGoogleLogin}
-                  className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 font-semibold text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-3 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <img
                     src="https://www.google.com/favicon.ico"

@@ -87,7 +87,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
         {comment.userPhoto ? (
           <img src={comment.userPhoto} alt="" className="h-10 w-10 rounded-full object-cover" />
         ) : (
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-purple-700 font-bold text-white">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-red-500 to-rose-700 font-bold text-white">
             {comment.username.charAt(0).toUpperCase()}
           </div>
         )}
@@ -108,7 +108,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
               onClick={handleLike}
               disabled={!user || likeLoading}
               title={!user ? 'Entre para curtir' : liked ? 'Remover curtida' : 'Curtir comentário'}
-              className={`font-medium transition disabled:cursor-not-allowed disabled:opacity-50 ${liked ? 'text-purple-400' : 'text-gray-400 hover:text-white'}`}
+              className={`font-medium transition disabled:cursor-not-allowed disabled:opacity-50 ${liked ? 'text-red-300' : 'text-gray-400 hover:text-white'}`}
             >
               {liked ? 'Curtido' : 'Curtir'} · {likeCount}
             </button>
@@ -298,23 +298,23 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ videoId }) => {
             maxLength={2000}
             rows={3}
             placeholder="Compartilhe sua opinião..."
-            className="w-full resize-y rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white outline-none transition placeholder:text-gray-500 focus:border-purple-500"
+            className="w-full resize-y rounded-2xl border border-white/10 bg-[#0b0b0e] p-4 text-sm text-white outline-none transition placeholder:text-gray-500 focus:border-red-500/60 focus:ring-2 focus:ring-red-500/20"
           />
           <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
             <span className="text-xs text-gray-500">{text.length}/2000</span>
             <button
               type="submit"
               disabled={submitting || !text.trim()}
-              className="rounded-lg bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-purple-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {submitting ? 'Enviando...' : editing ? 'Salvar edição' : replyTo ? 'Enviar resposta' : 'Publicar comentário'}
             </button>
           </div>
         </form>
       ) : (
-        <div className="mb-6 rounded-lg border border-gray-800 bg-gray-900 p-4 text-sm text-gray-300">
+        <div className="mb-6 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 text-sm text-gray-300">
           <p>Entre na sua conta para publicar, responder e curtir comentários.</p>
-          <Link to="/auth" className="mt-3 inline-flex rounded-lg bg-purple-600 px-4 py-2 font-semibold text-white hover:bg-purple-500">
+          <Link to="/auth" className="mt-3 inline-flex rounded-full bg-red-600 px-4 py-2.5 font-semibold text-white transition hover:bg-red-500">
             Entrar ou criar conta
           </Link>
         </div>
@@ -325,7 +325,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ videoId }) => {
       {loading ? (
         <p className="py-6 text-sm text-gray-400">Carregando comentários...</p>
       ) : rootComments.length === 0 ? (
-        <p className="rounded-lg bg-gray-900 p-5 text-sm text-gray-400">Ainda não há comentários. Seja a primeira pessoa a comentar!</p>
+        <p className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 text-sm text-gray-400">Ainda não há comentários. Seja a primeira pessoa a comentar!</p>
       ) : (
         <div>
           {rootComments.map((comment) => (

@@ -11,7 +11,7 @@ const VideoDetails: React.FC = () => {
   if (!video) {
     return (
       <main className="min-h-screen bg-[#09090b] px-4 pb-16 pt-28 text-white">
-        <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center shadow-2xl shadow-black/30">
+        <div className="mx-auto max-w-4xl rounded-3xl border border-white/[0.08] bg-white/[0.03] p-8 text-center shadow-xl sm:p-12">
           <h1 className="text-2xl font-bold">Vídeo não encontrado</h1>
           <p className="mt-3 text-gray-400">Este conteúdo não está disponível na biblioteca atual.</p>
           <Link to="/videos" className="mt-6 inline-flex rounded-full bg-red-600 px-5 py-3 font-semibold transition hover:bg-red-500">
@@ -29,13 +29,13 @@ const VideoDetails: React.FC = () => {
   return (
     <main className="min-h-screen bg-[#09090b] px-4 pb-16 pt-28 text-white">
       <article className="mx-auto max-w-5xl">
-        <Link to="/videos" className="mb-6 inline-flex rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-medium text-gray-300 transition hover:border-red-500/30 hover:text-white">
+        <Link to="/videos" className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-red-300 transition hover:text-white">
           ← Voltar para a biblioteca
         </Link>
 
         <h1 className="mb-4 text-3xl font-black tracking-tight sm:text-4xl">{video.title}</h1>
-        <div className="mb-6 flex flex-wrap gap-2 text-sm text-gray-400">
-          {video.category && <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">{video.category}</span>}
+        <div className="mb-6 flex flex-wrap gap-2 text-xs text-gray-300 sm:text-sm">
+          {video.category && <span className="rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1.5 text-red-200">{video.category}</span>}
           {video.duration && <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">{video.duration}</span>}
           {video.creator && <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">Por {video.creator}</span>}
           {video.views && <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">{video.views} visualizações</span>}
@@ -52,7 +52,7 @@ const VideoDetails: React.FC = () => {
         </div>
 
         {video.description && (
-          <p className="mt-5 whitespace-pre-wrap leading-relaxed text-gray-300">{video.description}</p>
+          <p className="mt-6 whitespace-pre-wrap leading-relaxed text-gray-300">{video.description}</p>
         )}
 
         <CommentsSection videoId={video.id} />
