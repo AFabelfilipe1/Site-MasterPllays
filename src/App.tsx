@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 
 import Home from './pages/Home';
 import Videos from './pages/Videos';
+import VideoDetails from './pages/VideoDetails';
 import Lives from './pages/Lives';
 import Clips from './pages/Clips';
 import Auth from './pages/Auth';
@@ -29,6 +30,7 @@ function App() {
 
           {/* Conteúdos */}
           <Route path="/videos" element={<Videos />} />
+          <Route path="/video/:videoId" element={<VideoDetails />} />
           <Route path="/clipes" element={<Clips />} />
           <Route path="/lives" element={<Lives />} />
 

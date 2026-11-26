@@ -1,6 +1,8 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import VideoPlayer from './VideoPlayer';
+import CommentsSection from './CommentsSection';
+import { Link } from 'react-router-dom';
 import { Video } from '../types';
 
 interface VideoModalProps {
@@ -158,6 +160,19 @@ const VideoModal: React.FC<VideoModalProps> = ({
             )}
           </div>
         </div>
+
+        <div className="mt-5 flex justify-end">
+          <Link
+            to={`/video/${encodeURIComponent(currentVideo.id)}`}
+            onClick={onClose}
+            className="text-sm font-semibold text-purple-400 transition hover:text-purple-300"
+          >
+            Abrir página deste vídeo →
+          </Link>
+        </div>
+
+        {/* Comentários compartilhados com a página individual do vídeo */}
+        <CommentsSection videoId={currentVideo.id} />
 
         {/* Controles da playlist */}
         {hasPlaylist && (
