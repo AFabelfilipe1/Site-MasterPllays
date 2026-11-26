@@ -1,5 +1,5 @@
 
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import VideoModal from '../components/VideoModal';
@@ -118,14 +118,16 @@ function VideoCard({ video, onSelect }: VideoCardProps) {
 interface PlaylistCardProps {
   playlist: Playlist;
   videos: Video[];
+  playlistVideos: Video[];
   isExpanded: boolean;
   onToggle: (playlistId: string) => void;
-  onSelectVideo: (video: Video) => void;
+  onSelectVideo: (video: Video, playlistVideos: Video[]) => void;
 }
 
 function PlaylistCard({
   playlist,
   videos,
+  playlistVideos,
   isExpanded,
   onToggle,
   onSelectVideo,
@@ -209,7 +211,9 @@ function PlaylistCard({
                 <VideoCard
                   key={video.id}
                   video={video}
-                  onSelect={onSelectVideo}
+                  onSelect={(selectedVideo) =>
+                    onSelectVideo(selectedVideo, playlistVideos)
+                  }
                 />
               ))}
             </div>
@@ -239,10 +243,27 @@ const Videos: React.FC = () => {
   // Vídeo selecionado
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
+  // Fila completa da playlist selecionada
+  const [selectedPlaylistVideos, setSelectedPlaylistVideos] = useState<
+    Video[]
+  >([]);
+
   // Playlists expandidas
   const [expandedPlaylists, setExpandedPlaylists] = useState<Set<string>>(
     () => new Set()
   );
+
+  // ====================================================
+  // SELEÇÃO DE VÍDEO E PLAYLIST
+  // ====================================================
+
+  const handleSelectVideo = (
+    video: Video,
+    playlistVideos: Video[]
+  ) => {
+    setSelectedPlaylistVideos(playlistVideos);
+    setSelectedVideo(video);
+  };
 
   // ====================================================
   // CATEGORIA SINCRONIZADA COM A URL
@@ -306,7 +327,7 @@ const Videos: React.FC = () => {
         return [];
       }
 
-      // Vídeos pertencentes à playlist
+      // Lista completa e ordenada da playlist
       const playlistVideos = getVideosByPlaylist(playlist.videoIds);
 
       // Pesquisa nas informações da playlist
@@ -337,14 +358,15 @@ const Videos: React.FC = () => {
         return [];
       }
 
-      // Se a playlist corresponde, apresenta todos os vídeos.
-      // Se apenas um vídeo corresponde, apresenta somente ele.
+      // A exibição pode ser filtrada.
+      // A fila completa permanece intacta para o player.
       return [
         {
           playlist,
           videos: playlistMatches
             ? playlistVideos
             : matchingVideos,
+          playlistVideos,
         },
       ];
     });
@@ -538,16 +560,19 @@ const Videos: React.FC = () => {
 
                   {/* Playlists */}
                   <div className="space-y-4">
-                    {playlists.map(({ playlist, videos }) => (
-                      <PlaylistCard
-                        key={playlist.id}
-                        playlist={playlist}
-                        videos={videos}
-                        isExpanded={expandedPlaylists.has(playlist.id)}
-                        onToggle={togglePlaylistExpanded}
-                        onSelectVideo={setSelectedVideo}
-                      />
-                    ))}
+                    {playlists.map(
+                      ({ playlist, videos, playlistVideos }) => (
+                        <PlaylistCard
+                          key={playlist.id}
+                          playlist={playlist}
+                          videos={videos}
+                          playlistVideos={playlistVideos}
+                          isExpanded={expandedPlaylists.has(playlist.id)}
+                          onToggle={togglePlaylistExpanded}
+                          onSelectVideo={handleSelectVideo}
+                        />
+                      )
+                    )}
                   </div>
 
                 </section>
@@ -616,7 +641,11 @@ const Videos: React.FC = () => {
       <VideoModal
         video={selectedVideo}
         isOpen={!!selectedVideo}
-        onClose={() => setSelectedVideo(null)}
+        playlistVideos={selectedPlaylistVideos}
+        onClose={() => {
+          setSelectedVideo(null);
+          setSelectedPlaylistVideos([]);
+        }}
       />
 
     </div>
