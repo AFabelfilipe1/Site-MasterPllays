@@ -116,12 +116,13 @@ const Profile: React.FC = () => {
   const isGoogleUser = user.providerData.some(provider => provider.providerId === 'google.com');
 
   return (
-    <div className="min-h-screen bg-black py-12 px-4 sm:px-6 lg:px-8 pt-24">
-      <div className="max-w-md mx-auto bg-gray-900 rounded-lg shadow-lg overflow-hidden border border-gray-800">
-        <div className="px-6 py-8">
+    <div className="min-h-screen bg-[#09090b] px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-md overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] shadow-2xl shadow-black/30">
+        <div className="px-6 py-8 sm:px-8">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-white">Meu Perfil</h1>
-            <p className="text-gray-400 mt-2">Gerencie suas informações pessoais</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-red-400">Sua conta</p>
+            <h1 className="text-3xl font-black tracking-tight text-white">Meu Perfil</h1>
+            <p className="mt-2 text-gray-400">Gerencie suas informações pessoais</p>
           </div>
 
           {/* Avatar e Info Básica */}
@@ -134,7 +135,7 @@ const Profile: React.FC = () => {
                   className="w-full h-full rounded-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full rounded-full bg-red-600 flex items-center justify-center text-white text-2xl font-bold">
+                <div className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-red-500 to-rose-800 text-2xl font-bold text-white ring-4 ring-red-500/10">
                   {user.displayName?.charAt(0)?.toUpperCase() || user.email?.charAt(0)?.toUpperCase()}
                 </div>
               )}
@@ -155,13 +156,13 @@ const Profile: React.FC = () => {
 
           {/* Mensagens de Status */}
           {error && (
-            <div className="mb-4 p-4 bg-red-900/20 border border-red-700 rounded-md">
+            <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 p-4">
               <p className="text-sm text-red-200">{error}</p>
             </div>
           )}
 
           {success && (
-            <div className="mb-4 p-4 bg-green-900/20 border border-green-700 rounded-md">
+            <div className="mb-4 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4">
               <p className="text-sm text-green-200">{success}</p>
             </div>
           )}
@@ -178,7 +179,7 @@ const Profile: React.FC = () => {
                   id="displayName"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-700 rounded-md bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-red-500 focus:border-red-500"
+                  className="mt-1 block w-full rounded-xl border border-white/10 bg-[#0b0b0e] px-4 py-3 text-white placeholder-gray-500 transition focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20"
                   placeholder="Seu nome"
                 />
               </div>
@@ -192,7 +193,7 @@ const Profile: React.FC = () => {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-700 rounded-md bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-red-500 focus:border-red-500"
+                  className="mt-1 block w-full rounded-xl border border-white/10 bg-[#0b0b0e] px-4 py-3 text-white placeholder-gray-500 transition focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20"
                 />
               </div>
 
@@ -207,7 +208,7 @@ const Profile: React.FC = () => {
                       id="currentPassword"
                       value={currentPassword}
                       onChange={(e) => setCurrentPassword(e.target.value)}
-                      className="mt-1 block w-full px-3 py-2 border border-gray-700 rounded-md bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-red-500 focus:border-red-500"
+                      className="mt-1 block w-full rounded-xl border border-white/10 bg-[#0b0b0e] px-4 py-3 text-white placeholder-gray-500 transition focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20"
                       placeholder="Digite sua senha atual"
                     />
                   </div>
@@ -221,7 +222,7 @@ const Profile: React.FC = () => {
                       id="newPassword"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="mt-1 block w-full px-3 py-2 border border-gray-700 rounded-md bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-red-500 focus:border-red-500"
+                      className="mt-1 block w-full rounded-xl border border-white/10 bg-[#0b0b0e] px-4 py-3 text-white placeholder-gray-500 transition focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20"
                       placeholder="Digite a nova senha"
                       minLength={6}
                     />
@@ -236,7 +237,7 @@ const Profile: React.FC = () => {
                       id="confirmPassword"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="mt-1 block w-full px-3 py-2 border border-gray-700 rounded-md bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-red-500 focus:border-red-500"
+                      className="mt-1 block w-full rounded-xl border border-white/10 bg-[#0b0b0e] px-4 py-3 text-white placeholder-gray-500 transition focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20"
                       placeholder="Confirme a nova senha"
                       minLength={6}
                     />
@@ -248,7 +249,7 @@ const Profile: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 rounded-full bg-red-600 px-4 py-3 font-semibold text-white transition hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isSubmitting ? 'Salvando...' : 'Salvar Alterações'}
                 </button>
@@ -263,7 +264,7 @@ const Profile: React.FC = () => {
                     setConfirmPassword('');
                     setError('');
                   }}
-                  className="flex-1 bg-gray-800 text-gray-300 py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-900"
+                  className="flex-1 rounded-full border border-white/10 bg-white/[0.04] px-4 py-3 font-semibold text-gray-300 transition hover:bg-white/[0.08] hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30"
                 >
                   Cancelar
                 </button>
@@ -273,7 +274,7 @@ const Profile: React.FC = () => {
             <div className="space-y-4">
               <button
                 onClick={() => setIsEditing(true)}
-                className="w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                className="w-full rounded-full bg-red-600 px-4 py-3 font-semibold text-white transition hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400"
               >
                 Editar Perfil
               </button>
@@ -281,13 +282,13 @@ const Profile: React.FC = () => {
           )}
 
           {/* Excluir Conta */}
-          <div className="mt-8 pt-6 border-t border-gray-700">
-            <h3 className="text-lg font-medium text-white mb-4">Zona de Perigo</h3>
+          <div className="mt-8 border-t border-white/10 pt-6">
+            <h3 className="mb-4 text-lg font-semibold text-white">Zona de Perigo</h3>
 
             {!showDeleteConfirm ? (
               <button
                 onClick={() => setShowDeleteConfirm(true)}
-                className="w-full bg-red-900/20 border border-red-700 text-red-300 py-2 px-4 rounded-md hover:bg-red-900/30 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                className="w-full rounded-full border border-red-500/30 bg-red-500/10 px-4 py-3 font-semibold text-red-200 transition hover:bg-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-500"
               >
                 Excluir Conta
               </button>
@@ -300,14 +301,14 @@ const Profile: React.FC = () => {
                   type="password"
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
-                  className="block w-full px-3 py-2 border border-gray-700 rounded-md bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-red-500 focus:border-red-500"
+                  className="block w-full rounded-xl border border-white/10 bg-[#0b0b0e] px-4 py-3 text-white placeholder-gray-500 transition focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20"
                   placeholder="Digite sua senha"
                 />
                 <div className="flex space-x-3">
                   <button
                     onClick={handleDeleteAccount}
                     disabled={isSubmitting}
-                    className="flex-1 bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 rounded-full bg-red-600 px-4 py-3 font-semibold text-white transition hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {isSubmitting ? 'Excluindo...' : 'Confirmar Exclusão'}
                   </button>
@@ -316,7 +317,7 @@ const Profile: React.FC = () => {
                       setShowDeleteConfirm(false);
                       setCurrentPassword('');
                     }}
-                    className="flex-1 bg-gray-800 text-gray-300 py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-900"
+                    className="flex-1 rounded-full border border-white/10 bg-white/[0.04] px-4 py-3 font-semibold text-gray-300 transition hover:bg-white/[0.08] hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30"
                   >
                     Cancelar
                   </button>

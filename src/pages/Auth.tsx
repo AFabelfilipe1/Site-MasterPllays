@@ -14,8 +14,8 @@ const Auth: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      <div className="flex min-h-[calc(100vh-7rem)] items-center justify-center bg-[#09090b]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/10 border-t-red-500" />
       </div>
     );
   }
@@ -56,21 +56,24 @@ const Auth: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen flex-col justify-center bg-[#09090b] px-4 py-12 pt-28 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          MasterPllays
+        <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-rose-700 text-xl font-black text-white shadow-lg shadow-red-950/40">
+          M
+        </div>
+        <h2 className="text-center text-3xl font-black tracking-tight text-white">
+          {isLogin ? 'Bem-vindo de volta' : 'Crie sua conta'}
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-sm text-gray-400">
           {isLogin ? 'Entre na sua conta' : 'Crie sua conta'}
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="rounded-3xl border border-white/10 bg-white/[0.03] px-4 py-8 shadow-2xl shadow-black/30 sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300">
                 Email
               </label>
               <div className="mt-1">
@@ -82,14 +85,14 @@ const Auth: React.FC = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="block w-full rounded-xl border border-white/10 bg-[#0b0b0e] px-4 py-3 text-white placeholder-gray-500 transition focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20 sm:text-sm"
                   placeholder="seu@email.com"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-300">
                 Senha
               </label>
               <div className="mt-1">
@@ -101,7 +104,7 @@ const Auth: React.FC = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="block w-full rounded-xl border border-white/10 bg-[#0b0b0e] px-4 py-3 text-white placeholder-gray-500 transition focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20 sm:text-sm"
                   placeholder="••••••••"
                   minLength={6}
                 />
@@ -109,8 +112,8 @@ const Auth: React.FC = () => {
             </div>
 
             {error && (
-              <div className="rounded-md bg-red-50 p-4">
-                <div className="text-sm text-red-700">{error}</div>
+              <div className="rounded-xl border border-red-500/20 bg-red-500/10 p-4">
+                <div className="text-sm text-red-200">{error}</div>
               </div>
             )}
 
@@ -118,7 +121,7 @@ const Auth: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group relative flex w-full items-center justify-center rounded-full bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-red-950/30 transition hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-[#09090b] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
@@ -131,10 +134,10 @@ const Auth: React.FC = () => {
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
+                  <div className="w-full border-t border-white/10" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Ou</span>
+                  <span className="bg-[#111114] px-3 text-gray-500">ou</span>
                 </div>
               </div>
 
@@ -142,7 +145,7 @@ const Auth: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleGoogleLogin}
-                  className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-3 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 font-semibold text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <img
                     src="https://www.google.com/favicon.ico"
@@ -164,7 +167,7 @@ const Auth: React.FC = () => {
                 setEmail('');
                 setPassword('');
               }}
-              className="text-sm text-blue-600 hover:text-blue-500"
+              className="text-sm font-medium text-red-400 transition-colors hover:text-red-300"
             >
               {isLogin
                 ? 'Não tem conta? Cadastre-se'

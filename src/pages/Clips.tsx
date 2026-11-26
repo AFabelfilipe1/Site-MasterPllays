@@ -99,11 +99,11 @@ const Clips: React.FC = () => {
   const closePlayer = () => setSelectedClip(null);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-black via-gray-950 to-black pb-20 pt-28 text-white">
+    <main className="min-h-screen bg-[#09090b] pb-20 pt-28 text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Cabeçalho */}
         <header className="mb-10">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-2">
+          <div           className="mb-4 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/[0.06] px-4 py-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
             <span className="text-xs font-bold uppercase tracking-wider text-red-400">
               Melhores momentos das transmissões
@@ -126,17 +126,17 @@ const Clips: React.FC = () => {
           aria-label="Resumo dos clipes"
           className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3"
         >
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 shadow-lg shadow-black/10">
             <p className="text-sm text-gray-400">Clipes publicados</p>
             <p className="mt-1 text-3xl font-bold text-white">{CLIPS.length}</p>
           </div>
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 shadow-lg shadow-black/10">
             <p className="text-sm text-gray-400">Categorias</p>
             <p className="mt-1 text-3xl font-bold text-white">
               {new Set(CLIPS.map((clip) => clip.category)).size}
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
+          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 shadow-lg shadow-black/10">
             <p className="text-sm text-gray-400">Visualizações dos clipes</p>
             <p className="mt-1 text-3xl font-bold text-red-500">
               {formatViews(CLIPS.reduce((total, clip) => total + clip.views, 0))}
@@ -145,7 +145,7 @@ const Clips: React.FC = () => {
         </section>
 
         {/* Busca e filtros */}
-        <section className="mb-8 space-y-5" aria-label="Filtros de clipes">
+        <section className="mb-8 space-y-5 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4 shadow-xl shadow-black/10 sm:p-5" aria-label="Filtros de clipes">
           <div className="flex flex-col gap-3 md:flex-row">
             <label className="relative block flex-1">
               <span className="sr-only">Pesquisar clipes</span>
@@ -164,7 +164,7 @@ const Clips: React.FC = () => {
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder="Pesquisar por título, jogo ou criador..."
-                className="w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-12 pr-4 text-white outline-none transition placeholder:text-gray-500 focus:border-red-500"
+                className="w-full rounded-xl border border-white/10 bg-[#0b0b0e] py-3 pl-12 pr-4 text-white outline-none transition placeholder:text-gray-500 focus:border-red-500/60 focus:ring-2 focus:ring-red-500/20"
               />
             </label>
 
@@ -173,7 +173,7 @@ const Clips: React.FC = () => {
               <select
                 value={sort}
                 onChange={(event) => setSort(event.target.value as SortOption)}
-                className="w-full rounded-xl border border-white/10 bg-gray-900 px-4 py-3 text-white outline-none focus:border-red-500"
+                className="w-full rounded-xl border border-white/10 bg-[#0b0b0e] px-4 py-3 text-white outline-none focus:border-red-500/60 focus:ring-2 focus:ring-red-500/20"
               >
                 <option value="recentes">Mais recentes</option>
                 <option value="populares">Mais populares</option>
@@ -219,7 +219,7 @@ const Clips: React.FC = () => {
               {filteredClips.map((clip) => (
                 <article
                   key={clip.id}
-                  className="group overflow-hidden rounded-2xl border border-white/10 bg-gray-900/70 transition duration-300 hover:-translate-y-1 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-950/20"
+                  className="group overflow-hidden rounded-2xl border border-white/[0.07] bg-[#121216] shadow-lg shadow-black/10 transition duration-300 hover:-translate-y-1 hover:border-red-500/30 hover:shadow-xl hover:shadow-red-950/20"
                 >
                   <button
                     type="button"
@@ -311,7 +311,7 @@ const Clips: React.FC = () => {
             if (event.target === event.currentTarget) closePlayer();
           }}
         >
-          <div className="w-full max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-gray-950 shadow-2xl">
+          <div className="w-full max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-[#111114] shadow-2xl">
             <div className="flex items-center justify-between gap-4 p-4">
               <div className="min-w-0">
                 <h2 id="clip-modal-title" className="truncate font-bold text-white">

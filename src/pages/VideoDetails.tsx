@@ -10,11 +10,11 @@ const VideoDetails: React.FC = () => {
 
   if (!video) {
     return (
-      <main className="min-h-screen bg-black px-4 pb-16 pt-28 text-white">
-        <div className="mx-auto max-w-4xl rounded-xl border border-gray-800 bg-gray-900 p-8 text-center">
+      <main className="min-h-screen bg-[#09090b] px-4 pb-16 pt-28 text-white">
+        <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center shadow-2xl shadow-black/30">
           <h1 className="text-2xl font-bold">Vídeo não encontrado</h1>
           <p className="mt-3 text-gray-400">Este conteúdo não está disponível na biblioteca atual.</p>
-          <Link to="/videos" className="mt-6 inline-flex rounded-lg bg-purple-600 px-5 py-2 font-semibold hover:bg-purple-500">
+          <Link to="/videos" className="mt-6 inline-flex rounded-full bg-red-600 px-5 py-3 font-semibold transition hover:bg-red-500">
             Voltar para os vídeos
           </Link>
         </div>
@@ -27,21 +27,21 @@ const VideoDetails: React.FC = () => {
     : '';
 
   return (
-    <main className="min-h-screen bg-black px-4 pb-16 pt-28 text-white">
+    <main className="min-h-screen bg-[#09090b] px-4 pb-16 pt-28 text-white">
       <article className="mx-auto max-w-5xl">
-        <Link to="/videos" className="mb-5 inline-flex text-sm font-medium text-purple-400 hover:text-purple-300">
+        <Link to="/videos" className="mb-6 inline-flex rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-medium text-gray-300 transition hover:border-red-500/30 hover:text-white">
           ← Voltar para a biblioteca
         </Link>
 
-        <h1 className="mb-3 text-2xl font-bold sm:text-3xl">{video.title}</h1>
-        <div className="mb-5 flex flex-wrap gap-3 text-sm text-gray-400">
-          {video.category && <span>{video.category}</span>}
-          {video.duration && <span>{video.duration}</span>}
-          {video.creator && <span>Por {video.creator}</span>}
-          {video.views && <span>{video.views} visualizações</span>}
+        <h1 className="mb-4 text-3xl font-black tracking-tight sm:text-4xl">{video.title}</h1>
+        <div className="mb-6 flex flex-wrap gap-2 text-sm text-gray-400">
+          {video.category && <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">{video.category}</span>}
+          {video.duration && <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">{video.duration}</span>}
+          {video.creator && <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">Por {video.creator}</span>}
+          {video.views && <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5">{video.views} visualizações</span>}
         </div>
 
-        <div className="overflow-hidden rounded-xl bg-gray-950">
+        <div className="overflow-hidden rounded-3xl border border-white/10 bg-black shadow-2xl shadow-black/30">
           {video.youtubeId ? (
             <VideoPlayer videoUrl={videoUrl} />
           ) : (

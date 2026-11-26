@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const About: React.FC = () => {
   return (
-    <main className="min-h-screen bg-black px-4 pb-16 pt-24 text-white sm:px-6 md:pt-28 lg:px-8">
+    <main className="min-h-screen bg-[#09090b] px-4 pb-16 pt-24 text-white sm:px-6 md:pt-28 lg:px-8">
       <div className="mx-auto max-w-5xl">
 
         {/* Hero */}
@@ -32,7 +32,7 @@ const About: React.FC = () => {
         </section>
 
         {/* About Me */}
-        <section className="mb-16 rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-6 shadow-xl sm:p-10 md:p-12">
+        <section className="mb-16 rounded-3xl border border-white/[0.08] bg-white/[0.025] p-6 shadow-xl shadow-black/20 backdrop-blur sm:p-10 md:p-12">
           <SectionTitle>Sobre Mim</SectionTitle>
 
           <div className="space-y-5 leading-relaxed text-gray-300">
@@ -60,7 +60,7 @@ const About: React.FC = () => {
               que acompanham meu trabalho.
             </p>
 
-            <div className="rounded-xl border-l-4 border-red-600 bg-black/50 p-5">
+            <div className="rounded-2xl border border-red-500/15 border-l-4 border-l-red-500 bg-red-500/[0.04] p-5">
               <h3 className="mb-2 font-bold text-white">
                 🎯 Minha missão
               </h3>
@@ -76,7 +76,7 @@ const About: React.FC = () => {
         </section>
 
         {/* About Platform */}
-        <section className="mb-16 rounded-2xl border border-gray-800 bg-gradient-to-br from-black to-gray-900 p-6 shadow-xl sm:p-10 md:p-12">
+        <section className="mb-16 rounded-3xl border border-white/[0.08] bg-white/[0.025] p-6 shadow-xl shadow-black/20 backdrop-blur sm:p-10 md:p-12">
           <SectionTitle>Sobre a Plataforma</SectionTitle>
 
           <p className="mb-8 leading-relaxed text-gray-400">
@@ -115,7 +115,7 @@ const About: React.FC = () => {
         </section>
 
         {/* Values */}
-        <section className="mb-16 rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-6 shadow-xl sm:p-10 md:p-12">
+        <section className="mb-16 rounded-3xl border border-white/[0.08] bg-white/[0.025] p-6 shadow-xl shadow-black/20 backdrop-blur sm:p-10 md:p-12">
           <SectionTitle>O Que Move o MasterPllays?</SectionTitle>
 
           <div className="space-y-6">
@@ -148,7 +148,7 @@ const About: React.FC = () => {
         </section>
 
         {/* CTA */}
-        <section className="rounded-2xl border border-red-500/30 bg-gradient-to-r from-red-700 via-red-600 to-red-800 p-7 text-center shadow-2xl shadow-red-950/30 sm:p-12">
+        <section className="rounded-3xl border border-red-400/20 bg-gradient-to-br from-red-700 via-red-600 to-rose-800 p-7 text-center shadow-2xl shadow-red-950/30 sm:p-12">
           <h2 className="mb-4 text-3xl font-extrabold sm:text-4xl">
             Faça Parte Dessa Experiência!
           </h2>
@@ -162,14 +162,14 @@ const About: React.FC = () => {
 
             <Link
               to="/videos"
-              className="rounded-lg bg-white px-8 py-3 font-bold text-red-700 transition-all duration-200 hover:scale-105 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-700"
+              className="rounded-full bg-white px-8 py-3 font-bold text-red-700 transition-all duration-200 hover:-translate-y-0.5 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-700"
             >
               Explorar Vídeos
             </Link>
 
             <Link
               to="/lives"
-              className="rounded-lg border border-white/40 bg-red-900/30 px-8 py-3 font-bold text-white transition-all duration-200 hover:scale-105 hover:bg-red-900/60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-700"
+              className="rounded-full border border-white/30 bg-red-900/30 px-8 py-3 font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-900/60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-700"
             >
               Assistir às Lives
             </Link>
@@ -178,7 +178,7 @@ const About: React.FC = () => {
         </section>
 
         {/* Contact */}
-        <section className="mt-16 border-t border-gray-800 pt-12 text-center">
+        <section className="mt-16 border-t border-white/[0.08] pt-12 text-center">
           <h2 className="mb-3 text-2xl font-bold text-white">
             Entre em Contato
           </h2>
@@ -235,7 +235,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   title,
   description,
 }) => (
-  <article className="rounded-xl border border-red-900/30 bg-gradient-to-br from-red-950/30 to-black p-6 transition-all duration-300 hover:-translate-y-1 hover:border-red-600/60">
+  <article className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-red-500/30 hover:bg-red-500/[0.04]">
     <div className="mb-4 text-3xl" aria-hidden="true">
       {icon}
     </div>
@@ -264,7 +264,7 @@ const ValueItem: React.FC<ValueItemProps> = ({
 }) => (
   <article className="flex items-start gap-4">
     <div
-      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-red-900/40 bg-red-950/40 text-2xl"
+      className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-red-500/15 bg-red-500/[0.08] text-2xl"
       aria-hidden="true"
     >
       {icon}
