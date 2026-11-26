@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 type SocialPlatform =
-  | 'Facebook'
   | 'Instagram'
   | 'Twitch'
   | 'X'
@@ -12,16 +11,15 @@ type SocialPlatform =
 const socialProfiles: Array<{
   platform: SocialPlatform;
   label: string;
-  href?: string;
+  href: string;
 }> = [
-  { platform: 'Facebook', label: 'Facebook' },
   { platform: 'Instagram', label: '@masterpllaysyt', href: 'https://instagram.com/masterpllaysyt' },
   { platform: 'Instagram', label: '@masterpllaysvlogs', href: 'https://instagram.com/masterpllaysvlogs' },
   { platform: 'Instagram', label: '@masterpllays', href: 'https://instagram.com/masterpllays' },
   { platform: 'Twitch', label: '@masterpllays', href: 'https://twitch.tv/masterpllays' },
   { platform: 'X', label: '@mpllays', href: 'https://x.com/mpllays' },
   { platform: 'X', label: '@mpllaysvlogs', href: 'https://x.com/mpllaysvlogs' },
-  { platform: 'Discord', label: 'Comunidade', href: 'https://discord.gg/b93D3wUa2' },
+  { platform: 'Discord', label: 'Comunidade', href: 'https://discord.gg/b939D3wUa2' },
   {
     platform: 'TikTok',
     label: '@abelfilipecardosocandido',
@@ -42,15 +40,6 @@ function SocialIcon({ platform }: { platform: SocialPlatform }) {
   };
 
   switch (platform) {
-    case 'Facebook':
-      return (
-        <svg {...commonProps}>
-          <path
-            fill="currentColor"
-            d="M13.4 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V4c-.3 0-1.4-.1-2.7-.1-2.7 0-4.5 1.6-4.5 4.5V10H6.7v3h2.8v8h3.9Z"
-          />
-        </svg>
-      );
     case 'Instagram':
       return (
         <svg {...commonProps} fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -148,31 +137,19 @@ export default function Footer() {
               {socialProfiles.map((profile) => {
                 const label = `${profile.platform} ${profile.label}`;
                 const className =
-                  'inline-flex min-h-10 items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 text-xs text-gray-300 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500';
+                  'inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] text-gray-300 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500';
 
-                return profile.href ? (
+                return (
                   <a
                     key={`${profile.platform}-${profile.href}`}
                     href={profile.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    title={label}
                     className={className}
                   >
                     <SocialIcon platform={profile.platform} />
-                    <span>{profile.label}</span>
                   </a>
-                ) : (
-                  <span
-                    key={profile.platform}
-                    aria-label="Facebook: link não informado"
-                    title="Facebook: link não informado"
-                    className={`${className} cursor-not-allowed opacity-50`}
-                  >
-                    <SocialIcon platform={profile.platform} />
-                    <span>{profile.label}</span>
-                  </span>
                 );
               })}
             </div>
