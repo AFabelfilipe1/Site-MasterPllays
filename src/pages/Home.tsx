@@ -85,7 +85,7 @@ const VideoCarousel: React.FC<CarouselProps> = ({
   if (videos.length === 0) return null;
 
   return (
-    <section className="mb-16" aria-label={title}>
+    <section className="mb-20" aria-label={title}>
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
           <h2 className="mb-2 text-2xl font-bold text-white md:text-3xl">
@@ -104,7 +104,7 @@ const VideoCarousel: React.FC<CarouselProps> = ({
             type="button"
             onClick={() => scroll('left')}
             disabled={!canScrollLeft}
-            className="rounded-full bg-red-600 p-3 text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-30"
+            className="rounded-full border border-white/10 bg-white/[0.04] p-3 text-white transition hover:border-red-500/40 hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-30"
             aria-label={`Rolar ${title} para a esquerda`}
           >
             <svg
@@ -127,7 +127,7 @@ const VideoCarousel: React.FC<CarouselProps> = ({
             type="button"
             onClick={() => scroll('right')}
             disabled={!canScrollRight}
-            className="rounded-full bg-red-600 p-3 text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-30"
+            className="rounded-full border border-white/10 bg-white/[0.04] p-3 text-white transition hover:border-red-500/40 hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-30"
             aria-label={`Rolar ${title} para a direita`}
           >
             <svg
@@ -150,7 +150,7 @@ const VideoCarousel: React.FC<CarouselProps> = ({
 
       <div
         ref={carouselRef}
-        className="scrollbar-hide flex gap-5 overflow-x-auto scroll-smooth pb-4"
+        className="scrollbar-hide flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {videos.map((video) => (
@@ -158,10 +158,10 @@ const VideoCarousel: React.FC<CarouselProps> = ({
             key={video.id}
             type="button"
             onClick={() => onVideoClick(video)}
-            className="group w-64 flex-shrink-0 cursor-pointer text-left transition-transform duration-300 hover:-translate-y-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 md:w-72"
+            className="group w-64 flex-shrink-0 snap-start cursor-pointer text-left transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 md:w-72"
             aria-label={`Assistir: ${video.title}`}
           >
-            <div className="relative mb-3 aspect-video overflow-hidden rounded-xl bg-gray-900 shadow-lg transition-shadow duration-300 group-hover:shadow-2xl">
+            <div className="relative mb-3 aspect-video overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-lg shadow-black/20 transition-all duration-300 group-hover:border-white/20 group-hover:shadow-2xl">
               <img
                 src={video.thumbnail}
                 alt=""
@@ -172,7 +172,7 @@ const VideoCarousel: React.FC<CarouselProps> = ({
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
               <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-red-600 text-white shadow-lg">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-xl shadow-red-950/40 ring-4 ring-white/20">
                   <svg
                     className="ml-1 h-8 w-8"
                     fill="currentColor"
@@ -247,7 +247,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
 
   return (
     <section
-      className={`rounded-2xl border bg-gradient-to-br ${background} ${borderColor} p-6 transition-all duration-300 md:p-8`}
+      className={`group relative overflow-hidden rounded-3xl border bg-gradient-to-br ${background} ${borderColor} p-6 shadow-xl shadow-black/20 transition-all duration-300 hover:-translate-y-1 md:p-8`}
     >
       <div className="mb-4 flex items-center gap-3">
         <span className="text-4xl" aria-hidden="true">
@@ -270,7 +270,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
               key={video.id}
               type="button"
               onClick={() => onVideoClick(video)}
-              className="group h-24 overflow-hidden rounded-lg bg-black/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+              className="group h-24 overflow-hidden rounded-xl border border-white/10 bg-black/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
               aria-label={`Assistir: ${video.title}`}
             >
               <img
@@ -346,56 +346,56 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-gray-950 to-black">
+    <div className="min-h-screen bg-gradient-to-b from-[#09090b] via-[#0d0d11] to-[#09090b]">
       {/* Seção principal */}
-      <section className="relative flex min-h-[85vh] items-center overflow-hidden pt-20">
+      <section className="relative flex min-h-[78vh] items-center overflow-hidden pt-20 sm:min-h-[82vh]">
         <div className="absolute inset-0" aria-hidden="true">
           {featuredVideo?.thumbnail && (
             <img
               src={featuredVideo.thumbnail}
               alt=""
-              className="h-full w-full object-cover opacity-30"
+              className="h-full w-full scale-105 object-cover opacity-30"
             />
           )}
 
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/50" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#09090b] via-[#09090b]/85 to-[#09090b]/35" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/25 to-transparent" />
         </div>
 
         <div
-          className="absolute right-0 top-0 h-96 w-96 rounded-full bg-red-600/10 blur-3xl"
+          className="absolute -right-24 top-0 h-96 w-96 rounded-full bg-red-600/15 blur-3xl"
           aria-hidden="true"
         />
 
         <div
-          className="absolute bottom-0 left-1/3 h-96 w-96 rounded-full bg-red-500/5 blur-3xl"
+          className="absolute bottom-0 left-1/3 h-96 w-96 rounded-full bg-red-500/10 blur-3xl"
           aria-hidden="true"
         />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <div className="mb-6 inline-block rounded-full border border-red-600/50 bg-red-600/20 px-4 py-2 backdrop-blur-sm">
-              <p className="text-sm font-bold text-red-400">
-                🎮 GAMES, VÍDEOS E CRIATIVIDADE
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-red-400/20 bg-red-500/10 px-4 py-2 backdrop-blur-sm">
+              <span className="h-2 w-2 rounded-full bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.8)]" aria-hidden="true" />
+              <p className="text-xs font-bold tracking-[0.18em] text-red-200 sm:text-sm">
+                GAMES, VÍDEOS E CRIATIVIDADE
               </p>
             </div>
 
-            <h1 className="mb-6 text-5xl font-black leading-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
-              Master
-              <span className="bg-gradient-to-r from-red-600 via-red-500 to-red-700 bg-clip-text text-transparent">
+            <h1 className="mb-6 text-5xl font-black leading-[0.98] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
+              Master<span className="bg-gradient-to-r from-red-400 via-red-500 to-rose-600 bg-clip-text text-transparent">
                 Pllays
               </span>
             </h1>
 
-            <p className="mb-10 max-w-2xl text-lg leading-relaxed text-gray-300 sm:text-xl md:text-2xl">
+            <p className="mb-10 max-w-2xl text-base leading-relaxed text-gray-300 sm:text-lg md:text-xl">
               Um espaço para acompanhar gameplays, vídeos, transmissões e conteúdos
               sobre o universo dos games e da criatividade.
             </p>
 
-            <div className="mb-10 flex flex-col gap-4 sm:flex-row">
+            <div className="mb-10 flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/videos"
-                className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-700 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-red-700 hover:to-red-800 hover:shadow-2xl"
+                className="flex items-center justify-center gap-2 rounded-full bg-red-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-red-950/40 transition-all duration-300 hover:-translate-y-0.5 hover:bg-red-500 hover:shadow-red-950/60"
               >
                 📺 Explorar vídeos
               </Link>
@@ -403,23 +403,23 @@ const Home: React.FC = () => {
               {!user ? (
                 <Link
                   to="/auth"
-                  className="rounded-xl border border-white/20 bg-white/10 px-8 py-4 text-center text-lg font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-white/40 hover:bg-white/20"
+                  className="rounded-full border border-white/15 bg-white/[0.06] px-7 py-3.5 text-center text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/30 hover:bg-white/10"
                 >
                   Criar conta / Entrar
                 </Link>
               ) : (
                 <Link
                   to="/videos"
-                  className="rounded-xl border border-white/20 bg-white/10 px-8 py-4 text-center text-lg font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/20"
+                  className="rounded-full border border-white/15 bg-white/[0.06] px-7 py-3.5 text-center text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/30 hover:bg-white/10"
                 >
                   Ver biblioteca
                 </Link>
               )}
             </div>
 
-            <div className="inline-flex rounded-lg border border-white/10 bg-white/5 px-5 py-3 backdrop-blur-md">
-              <p className="text-gray-300">
-                <span className="font-bold text-red-500">
+            <div className="inline-flex rounded-2xl border border-white/10 bg-black/30 px-5 py-3 backdrop-blur-md">
+              <p className="text-sm text-gray-300">
+                <span className="font-bold text-red-400">
                   {VIDEOS.length}
                 </span>
                 {' '}vídeos cadastrados na biblioteca
@@ -436,7 +436,7 @@ const Home: React.FC = () => {
               block: 'start',
             })
           }
-          className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-gray-400 transition-colors hover:text-white"
+          className="absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-sm text-gray-400 transition-colors hover:text-white"
           aria-label="Ir para os conteúdos"
         >
           <span className="text-sm">
@@ -444,7 +444,7 @@ const Home: React.FC = () => {
           </span>
 
           <svg
-            className="h-6 w-6 animate-bounce text-red-600"
+            className="h-5 w-5 animate-bounce text-red-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -572,7 +572,7 @@ const Home: React.FC = () => {
             ].map((feature) => (
               <article
                 key={feature.title}
-                className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-red-500/50 hover:bg-red-950/10"
+                className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-red-500/30 hover:bg-red-950/10"
               >
                 <p className="mb-3 text-4xl" aria-hidden="true">
                   {feature.icon}

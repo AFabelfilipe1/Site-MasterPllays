@@ -55,7 +55,7 @@ function VideoCard({ video, onSelect }: VideoCardProps) {
       type="button"
       onClick={() => onSelect(video)}
       aria-label={`Assistir vídeo: ${video.title}`}
-      className="group w-full overflow-hidden rounded-lg bg-gray-800 text-left transition-all duration-300 hover:bg-gray-700 hover:shadow-lg hover:shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+      className="group w-full overflow-hidden rounded-2xl border border-white/[0.07] bg-[#121216] text-left shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-1 hover:border-white/15 hover:bg-[#18181d] hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
     >
       {/* Miniatura */}
       <div className="relative aspect-video overflow-hidden bg-gray-900">
@@ -68,11 +68,11 @@ function VideoCard({ video, onSelect }: VideoCardProps) {
         />
 
         {/* Sobreposição */}
-        <div className="absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent transition-opacity group-hover:opacity-70" />
 
         {/* Botão visual de reprodução */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-600/95 text-white shadow-lg">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-600/95 text-white shadow-xl shadow-red-950/40 ring-4 ring-white/15">
             <svg
               viewBox="0 0 24 24"
               fill="currentColor"
@@ -85,21 +85,21 @@ function VideoCard({ video, onSelect }: VideoCardProps) {
         </div>
 
         {/* Duração */}
-        <span className="absolute bottom-2 right-2 rounded bg-black/85 px-2 py-1 text-xs font-medium text-white">
+        <span className="absolute bottom-3 right-3 rounded-md bg-black/80 px-2.5 py-1 text-xs font-medium text-white backdrop-blur">
           {video.duration}
         </span>
 
         {/* Identificação de novidade */}
         {isNew && (
-          <span className="absolute left-2 top-2 rounded bg-red-600 px-2 py-1 text-xs font-bold text-white">
+          <span className="absolute left-3 top-3 rounded-full bg-red-600 px-3 py-1 text-[10px] font-bold tracking-wider text-white">
             NOVO
           </span>
         )}
       </div>
 
       {/* Informações */}
-      <div className="p-3">
-        <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-white transition-colors group-hover:text-red-400">
+      <div className="p-4">
+        <h3 className="mb-2 line-clamp-2 text-sm font-semibold leading-relaxed text-white transition-colors group-hover:text-red-300">
           {video.title}
         </h3>
 
@@ -135,7 +135,7 @@ function PlaylistCard({
   const contentId = `playlist-content-${playlist.id}`;
 
   return (
-    <article className="mb-4 overflow-hidden rounded-xl bg-gray-800 transition-colors hover:bg-gray-750">
+    <article className="mb-4 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111114] shadow-lg shadow-black/10 transition-colors hover:border-white/15">
 
       {/* Cabeçalho expansível */}
       <button
@@ -143,7 +143,7 @@ function PlaylistCard({
         onClick={() => onToggle(playlist.id)}
         aria-expanded={isExpanded}
         aria-controls={contentId}
-        className="flex w-full items-start gap-4 p-4 text-left transition-colors hover:bg-gray-700/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-500"
+        className="flex w-full items-start gap-4 p-4 text-left transition-colors hover:bg-white/[0.025] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-500 sm:p-5"
       >
         {/* Miniatura da playlist */}
         <img
@@ -151,7 +151,7 @@ function PlaylistCard({
           alt={`Miniatura da playlist ${playlist.name}`}
           loading="lazy"
           decoding="async"
-          className="h-20 w-24 shrink-0 rounded-lg bg-gray-900 object-cover sm:h-24 sm:w-32"
+          className="h-20 w-24 shrink-0 rounded-xl border border-white/10 bg-gray-900 object-cover sm:h-24 sm:w-32"
         />
 
         {/* Informações */}
@@ -166,7 +166,7 @@ function PlaylistCard({
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              className={`h-6 w-6 shrink-0 text-red-500 transition-transform duration-300 ${
+              className={`h-6 w-6 shrink-0 text-red-400 transition-transform duration-300 ${
                 isExpanded ? 'rotate-180' : ''
               }`}
               aria-hidden="true"
@@ -203,7 +203,7 @@ function PlaylistCard({
       {isExpanded && (
         <div
           id={contentId}
-          className="border-t border-gray-700 bg-gray-900/50 p-4"
+          className="border-t border-white/[0.07] bg-black/20 p-4 sm:p-5"
         >
           {videos.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -408,19 +408,22 @@ const Videos: React.FC = () => {
   // ====================================================
 
   return (
-    <div className="min-h-screen bg-black pb-16 pt-20">
+    <div className="min-h-screen bg-[#09090b] pb-16 pt-20">
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
 
         {/* ============================================
             CABEÇALHO
         ============================================ */}
 
-        <header className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-white sm:text-4xl">
+        <header className="mb-8 pt-3 sm:mb-10">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-red-400">
+            MasterPllays · Biblioteca
+          </p>
+          <h1 className="mb-3 text-3xl font-black tracking-tight text-white sm:text-5xl">
             Biblioteca de Vídeos
           </h1>
 
-          <p className="max-w-2xl text-gray-400">
+          <p className="max-w-2xl text-sm leading-relaxed text-gray-400 sm:text-base">
             Explore nossas coleções organizadas em playlists temáticas
             e encontre seus conteúdos favoritos.
           </p>
@@ -432,7 +435,7 @@ const Videos: React.FC = () => {
 
         <section
           aria-label="Pesquisa e filtros da biblioteca"
-          className="mb-8 rounded-xl border border-gray-800 bg-gray-900 p-4 sm:p-6"
+          className="mb-8 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4 shadow-xl shadow-black/10 backdrop-blur sm:p-6"
         >
           <div className="flex flex-col gap-4 lg:flex-row">
 
@@ -468,7 +471,7 @@ const Videos: React.FC = () => {
                   onChange={(event) => setSearchTerm(event.target.value)}
                   placeholder="Digite o nome de um vídeo ou playlist..."
                   autoComplete="off"
-                  className="w-full rounded-lg border border-gray-700 bg-gray-800 py-3 pl-10 pr-4 text-white placeholder-gray-400 transition focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/30"
+                  className="w-full rounded-xl border border-white/10 bg-[#0b0b0e] py-3 pl-10 pr-4 text-white placeholder-gray-500 transition focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20"
                 />
               </div>
             </div>
@@ -488,7 +491,7 @@ const Videos: React.FC = () => {
                 onChange={(event) =>
                   handleCategoryChange(event.target.value)
                 }
-                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white transition focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/30"
+                className="w-full rounded-xl border border-white/10 bg-[#0b0b0e] px-4 py-3 text-white transition focus:border-red-500/60 focus:outline-none focus:ring-2 focus:ring-red-500/20"
               >
                 {VIDEO_CATEGORIES.map((category) => (
                   <option key={category} value={category}>
@@ -501,7 +504,7 @@ const Videos: React.FC = () => {
 
           {/* Informações dos resultados */}
           <div
-            className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-gray-800 pt-4"
+            className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.08] pt-4"
             aria-live="polite"
           >
             <div className="flex flex-wrap gap-4 text-sm text-gray-400">
@@ -523,7 +526,7 @@ const Videos: React.FC = () => {
                   setSearchTerm('');
                   handleCategoryChange('Todos');
                 }}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500/10 hover:text-red-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                className="rounded-full px-4 py-2 text-sm font-medium text-red-300 transition hover:bg-red-500/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
               >
                 Limpar filtros
               </button>
@@ -545,7 +548,7 @@ const Videos: React.FC = () => {
                   {/* Título da categoria */}
                   <div className="mb-5 flex items-center gap-3">
                     <div
-                      className="h-8 w-1 rounded-full bg-red-600"
+                      className="h-8 w-1 rounded-full bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.5)]"
                       aria-hidden="true"
                     />
 
@@ -553,7 +556,7 @@ const Videos: React.FC = () => {
                       {category}
                     </h2>
 
-                    <span className="rounded-full bg-gray-800 px-3 py-1 text-xs font-medium text-gray-400">
+                    <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-medium text-gray-400">
                       {playlists.length}
                     </span>
                   </div>
@@ -586,7 +589,7 @@ const Videos: React.FC = () => {
              ESTADO VAZIO
           ========================================== */
 
-          <section className="rounded-xl border border-gray-800 bg-gray-900/50 px-4 py-16 text-center">
+          <section className="rounded-3xl border border-white/[0.08] bg-white/[0.025] px-4 py-16 text-center">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -625,7 +628,7 @@ const Videos: React.FC = () => {
                 setSearchTerm('');
                 handleCategoryChange('Todos');
               }}
-              className="mt-6 rounded-lg bg-red-600 px-6 py-3 font-semibold text-white transition hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
+              className="mt-6 rounded-full bg-red-600 px-6 py-3 font-semibold text-white shadow-lg shadow-red-950/30 transition hover:bg-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
             >
               Limpar filtros
             </button>
