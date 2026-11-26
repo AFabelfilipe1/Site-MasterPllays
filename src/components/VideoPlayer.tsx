@@ -3,10 +3,12 @@ import React, { useEffect, useRef } from 'react';
 
 interface YouTubePlayer {
   destroy: () => void;
-  getPlayerState: () => number;
+  setSize: (width: number, height: number) => void;
 }
 
 interface YouTubePlayerOptions {
+  width?: number;
+  height?: number;
   videoId: string;
   playerVars?: {
     autoplay?: number;
@@ -62,6 +64,7 @@ const loadYouTubeAPI = (): Promise<YouTubeAPI> => {
       if (window.YT?.Player) {
         resolve(window.YT);
       } else {
+        youtubeApiPromise = null;
         reject(new Error('A API do YouTube não foi carregada.'));
       }
     };
@@ -101,6 +104,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   useEffect(() => {
     let cancelled = false;
+    let resizeObserver: ResizeObserver | null = null;
 
     const initializePlayer = async () => {
       const match = videoUrl.match(
@@ -108,22 +112,35 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       );
 
       const videoId = match?.[1];
+      const container = containerRef.current;
 
-      if (!videoId || !containerRef.current) {
-        return;
-      }
+      if (!videoId || !container) return;
 
       try {
         const YT = await loadYouTubeAPI();
 
-        if (cancelled || !containerRef.current) {
-          return;
-        }
+        if (cancelled || !containerRef.current) return;
 
         const playerElement = document.createElement('div');
-        containerRef.current.replaceChildren(playerElement);
 
-        playerRef.current = new YT.Player(playerElement, {
+        playerElement.style.width = '100%';
+        playerElement.style.height = '100%';
+
+        container.replaceChildren(playerElement);
+
+        const width = Math.max(
+          1,
+          Math.round(container.clientWidth)
+        );
+
+        const height = Math.max(
+          1,
+          Math.round(container.clientHeight)
+        );
+
+        const player = new YT.Player(playerElement, {
+          width,
+          height,
           videoId,
           playerVars: {
             autoplay: 1,
@@ -140,19 +157,48 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             },
           },
         });
+
+        if (cancelled) {
+          player.destroy();
+          return;
+        }
+
+        playerRef.current = player;
+
+        resizeObserver = new ResizeObserver(() => {
+          if (!containerRef.current || !playerRef.current) return;
+
+          const newWidth = Math.max(
+            1,
+            Math.round(containerRef.current.clientWidth)
+          );
+
+          const newHeight = Math.max(
+            1,
+            Math.round(containerRef.current.clientHeight)
+          );
+
+          playerRef.current.setSize(newWidth, newHeight);
+        });
+
+        resizeObserver.observe(container);
       } catch (error) {
         console.error('Erro ao carregar o player do YouTube:', error);
 
         if (!cancelled && containerRef.current) {
-          containerRef.current.innerHTML = '';
+          containerRef.current.replaceChildren();
 
           const iframe = document.createElement('iframe');
+
           iframe.src = videoUrl;
           iframe.title = 'Player de vídeo do YouTube';
           iframe.allow =
             'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
           iframe.allowFullscreen = true;
-          iframe.className = 'h-full w-full';
+          iframe.style.width = '100%';
+          iframe.style.height = '100%';
+          iframe.style.border = '0';
+
           containerRef.current.appendChild(iframe);
         }
       }
@@ -162,6 +208,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
     return () => {
       cancelled = true;
+      resizeObserver?.disconnect();
 
       if (playerRef.current) {
         playerRef.current.destroy();
@@ -171,8 +218,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   }, [videoUrl]);
 
   return (
-    <div className="aspect-video w-full bg-black">
-      <div ref={containerRef} className="h-full w-full" />
+    <div className="relative aspect-video w-full overflow-hidden bg-black">
+      <div
+        ref={containerRef}
+        className="absolute inset-0 h-full w-full"
+      />
     </div>
   );
 };
